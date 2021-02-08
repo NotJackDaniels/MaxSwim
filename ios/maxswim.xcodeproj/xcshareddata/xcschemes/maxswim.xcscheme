@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "maxswim.app"
-               BlueprintName = "maxswim"
-               ReferencedContainer = "container:maxswim.xcodeproj">
+               BuildableName = "MaxSwim.app"
+               BlueprintName = "MaxSwim"
+               ReferencedContainer = "container:MaxSwim.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "maxswimTests.xctest"
-               BlueprintName = "maxswimTests"
-               ReferencedContainer = "container:maxswim.xcodeproj">
+               BuildableName = "MaxSwimTests.xctest"
+               BlueprintName = "MaxSwimTests"
+               ReferencedContainer = "container:MaxSwim.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "maxswim.app"
-            BlueprintName = "maxswim"
-            ReferencedContainer = "container:maxswim.xcodeproj">
+            BuildableName = "MaxSwim.app"
+            BlueprintName = "MaxSwim"
+            ReferencedContainer = "container:MaxSwim.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "maxswim.app"
-            BlueprintName = "maxswim"
-            ReferencedContainer = "container:maxswim.xcodeproj">
+            BuildableName = "MaxSwim.app"
+            BlueprintName = "MaxSwim"
+            ReferencedContainer = "container:MaxSwim.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

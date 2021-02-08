@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'maxswim' do
+target 'MaxSwim' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'maxswimTests' do
+  target 'MaxSwimTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'maxswim' do
   end
 end
 
-target 'maxswim-tvOS' do
-  # Pods for maxswim-tvOS
+target 'MaxSwim-tvOS' do
+  # Pods for MaxSwim-tvOS
 
-  target 'maxswim-tvOSTests' do
+  target 'MaxSwim-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
