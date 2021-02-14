@@ -1,6 +1,7 @@
 import React from "react"
 import { Button, Text } from "react-native"
 import HomeScreenPresenter, { HomeScreenViewInterface } from "./HomeScreenPresenter"
+import strings from "../../resorces/strings";
 
 interface Props {
   presenter: HomeScreenPresenter
@@ -35,7 +36,7 @@ export default class HomeScreenView extends React.Component<Props, State> implem
   render() {
     return (<>
       <Text>{this.state.counterText}</Text>
-      <Button title={"Counter +1"} onPress={this.presenter.counterAddOne}/>
+      <Button title={strings.home.counterButtonTitle} onPress={this.presenter.counterAddOne}/>
     </>)
   }
 }

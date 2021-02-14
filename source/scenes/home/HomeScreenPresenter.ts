@@ -1,4 +1,5 @@
 import Dependencies from "../../services/Dependencies";
+import strings from "../../resorces/strings";
 
 export interface HomeScreenViewInterface {
   updateCounterText(text: string): void
@@ -24,6 +25,6 @@ export default class HomeScreenPresenter {
   }
 
   private updateCounter() {
-    this.view?.updateCounterText(`Current count is ${this.counter}`)
+    this.view?.updateCounterText(strings.home.counterText + this.counter)
   }
 }
