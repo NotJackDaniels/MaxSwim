@@ -1,9 +1,11 @@
 import React  from "react";
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import Dependencies from "../services/Dependencies";
+import screens from "../common/screens"
+import Dependencies from "../services/Dependencies"
 import HomeScreenView from "../scenes/home/HomeScreenView"
-import HomeScreenPresenter from "../scenes/home/HomeScreenPresenter";
+import HomeScreenPresenter from "../scenes/home/HomeScreenPresenter"
+import strings from "../resorces/strings";
 
 const Stack = createStackNavigator()
 
@@ -11,7 +13,7 @@ export default class MainNavigator extends React.Component {
   private readonly dependencies = Dependencies.createDefault()
 
   private createHomeScreen = (): React.ReactNode => {
-    let presenter = new HomeScreenPresenter(this.dependencies);
+    let presenter = new HomeScreenPresenter(this.dependencies)
     return <HomeScreenView presenter={presenter}/>
   }
 
@@ -19,7 +21,8 @@ export default class MainNavigator extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home">{this.createHomeScreen}</Stack.Screen>
+          <Stack.Screen name={screens.home}
+                        options={{ title: strings.home.screenTitle }}>{this.createHomeScreen}</Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     );
