@@ -36,7 +36,7 @@ export default class HomeScreenView extends React.Component<Props, State> implem
   render() {
     return (<>
       <Text>{this.state.counterText}</Text>
-      <Button title={strings.home.counterButtonTitle} onPress={this.presenter.counterAddOne}/>
+      <Button title={strings.home.counterButtonTitle} onPress={this.presenter.didPressCounterButton}/>
     </>)
   }
 }

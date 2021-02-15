@@ -19,7 +19,7 @@ export default class HomeScreenPresenter {
     this.updateCounter()
   }
 
-  counterAddOne = () => {
+  didPressCounterButton = () => {
     this.counter += 1
     this.updateCounter()
   }
