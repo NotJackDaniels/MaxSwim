@@ -1,5 +1,6 @@
 const screens = {
-  home: "home"
+  home: "home",
+  addLearner:"addLearner"
 }
 
 export default screens
