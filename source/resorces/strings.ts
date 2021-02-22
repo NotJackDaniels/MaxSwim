@@ -6,7 +6,9 @@ const strings = {
   },
   addLearner:{
     screenTitle:"Добавить ученика",
-    formHeading:"Информация",
+    information:"Информация",
+    telephones:"Телефоны",
+    subscription:"абонемент"
   }
 }
 

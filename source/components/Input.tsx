@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, TextInput } from 'react-native'
+import margins from '../resorces/margins'
 
 
 interface Props{
@@ -22,10 +23,10 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
         width:'100%',
         padding:10,
-        borderRadius:5,
+        borderRadius:7,
         borderColor:'grey',
         borderWidth:0.2,
-        marginVertical:10,
+        marginVertical:margins.defaultMarginVertical,
         height:50,
     }
 })
