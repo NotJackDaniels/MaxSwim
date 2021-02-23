@@ -10,6 +10,7 @@ import { ToggleButton } from "../../components/ToggleButton";
 import colors from "../../resorces/colors";
 import margins from "../../resorces/margins";
 import { FilledButton } from "../../components/FilledButton";
+import { RadioButtonView } from "../../components/RadioButton";
 
 interface Props {
     presenter: AddLearnerScreenPresenter
@@ -17,6 +18,7 @@ interface Props {
 
 interface State {
     toggleCheckBox:boolean;
+    surname:string,
 }
 
 export default class AddLearnerScreenView extends React.Component<Props, State> implements AddLearnerScreenViewInterface{
@@ -30,6 +32,7 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
     
         this.state = {
           toggleCheckBox:false,
+          surname:'',
         }
     }
 
@@ -53,14 +56,14 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
                 </TouchableOpacity>
                 
             </View>
-            <View>
+            <SafeAreaView>
                 <Text style={styles.formHeading}>{strings.addLearner.information}</Text>
-                <Input placeholder={'Фамилия'}/>
+                <Input placeholder={'Фамилия'} value={this.state.surname} />
                 <Input placeholder={'Имя'}/>
                 <Input placeholder={'Отчество'}/>
                 <Input placeholder={'Дата рождения'}/>
                 <Input placeholder={'Примечание'} numberOfLines={3} heights={90} enableMultiline={true} />
-            </View>
+            </SafeAreaView>
             <View>
                 <Text style={styles.formHeading}>{strings.addLearner.telephones}</Text>
                 <Input placeholder={'Имя контакта'}/>
@@ -80,12 +83,12 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
             </View>
             <View>
                 <Text style={styles.formHeading}>{strings.addLearner.subscription}</Text>
-                <View style={styles.rowElements}>
+                <ScrollView style={styles.row} horizontal={true}>
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'4 занятия'} />
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'8 занятий'} />
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'12 занятий'} />
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'Нет'} />
-                </View>
+                </ScrollView>
                 <Input placeholder={'Другое количество'}/>
             </View>
             <FilledButton onPress={()=>(console.warn('clicked!'))} buttonText={'Создать'} />
@@ -140,6 +143,12 @@ const styles = StyleSheet.create({
         alignItems:'center',
         marginVertical:margins.defaultMarginVertical,
     },
+    row:{
+        marginTop:margins.defaultMarginVertical,
+        flexDirection:'row',
+        marginVertical:margins.defaultMarginVertical,
+    },
+
     toggleButton:{
         position:'absolute',
         right:0,
