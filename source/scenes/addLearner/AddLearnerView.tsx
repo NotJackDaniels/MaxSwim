@@ -11,6 +11,7 @@ import colors from "../../resorces/colors";
 import margins from "../../resorces/margins";
 import { FilledButton } from "../../components/FilledButton";
 import { RadioButtonView } from "../../components/RadioButton";
+import { TelephoneInfo } from "../../components/TelephoneInfo";
 
 interface Props {
     presenter: AddLearnerScreenPresenter
@@ -66,6 +67,7 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
             </SafeAreaView>
             <View>
                 <Text style={styles.formHeading}>{strings.addLearner.telephones}</Text>
+                <TelephoneInfo  name={'Остапова Анна'} telephone={'+7888888888'} isMain={true} />
                 <Input placeholder={'Имя контакта'}/>
                 <Input placeholder={'Номер'}/>
             </View>

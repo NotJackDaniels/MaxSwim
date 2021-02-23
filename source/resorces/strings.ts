@@ -8,7 +8,8 @@ const strings = {
     screenTitle:"Добавить ученика",
     information:"Информация",
     telephones:"Телефоны",
-    subscription:"абонемент"
+    subscription:"абонемент",
+    main:"основной",
   }
 }
 
