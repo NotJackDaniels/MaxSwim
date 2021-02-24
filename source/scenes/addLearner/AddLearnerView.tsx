@@ -20,6 +20,13 @@ interface Props {
 interface State {
     toggleCheckBox:boolean;
     surname:string,
+    name:string,
+    date:string,
+    note:string,
+    patronymic:string,
+    contactName:string,
+    number:string,
+    lessons:string,
 }
 
 export default class AddLearnerScreenView extends React.Component<Props, State> implements AddLearnerScreenViewInterface{
@@ -34,6 +41,13 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
         this.state = {
           toggleCheckBox:false,
           surname:'',
+          name:'',
+          date:'',
+          note:'',
+          patronymic:'',
+          contactName:'',
+          number:'',
+          lessons:'',
         }
     }
 
@@ -60,16 +74,16 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
             <SafeAreaView>
                 <Text style={styles.formHeading}>{strings.addLearner.information}</Text>
                 <Input placeholder={'Фамилия'} value={this.state.surname} />
-                <Input placeholder={'Имя'}/>
-                <Input placeholder={'Отчество'}/>
-                <Input placeholder={'Дата рождения'}/>
-                <Input placeholder={'Примечание'} numberOfLines={3} heights={90} enableMultiline={true} />
+                <Input placeholder={'Имя'} value={this.state.name}/>
+                <Input placeholder={'Отчество'} value={this.state.patronymic}/>
+                <Input placeholder={'Дата рождения'} value={this.state.date}/>
+                <Input placeholder={'Примечание'} numberOfLines={3} heights={90} enableMultiline={true} value={this.state.note} />
             </SafeAreaView>
             <View>
                 <Text style={styles.formHeading}>{strings.addLearner.telephones}</Text>
                 <TelephoneInfo  name={'Остапова Анна'} telephone={'+7888888888'} isMain={true} />
-                <Input placeholder={'Имя контакта'}/>
-                <Input placeholder={'Номер'}/>
+                <Input placeholder={'Имя контакта'} value={this.state.contactName}/>
+                <Input placeholder={'Номер'} value={this.state.number}/>
             </View>
             <View style={styles.rowElements}>
                 <CheckBox
@@ -91,7 +105,7 @@ export default class AddLearnerScreenView extends React.Component<Props, State> 
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'12 занятий'} />
                     <ToggleButton Style={styles.lessonsButton} onPress={this.selectValue} buttonText={'Нет'} />
                 </ScrollView>
-                <Input placeholder={'Другое количество'}/>
+                <Input placeholder={'Другое количество'} value={this.state.lessons}/>
             </View>
             <FilledButton onPress={()=>(console.warn('clicked!'))} buttonText={'Создать'} />
         </ScrollView>)

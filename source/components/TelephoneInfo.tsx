@@ -11,7 +11,6 @@ interface Props {
 
 
 export const TelephoneInfo: React.FC<Props> = ({name,telephone,isMain}) => {
-    console.warn(isMain);
     return(
         <View style={{flexDirection:'row'}}>
             <View>
