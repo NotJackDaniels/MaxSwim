@@ -1,39 +1,59 @@
-import React, {CSSProperties, useCallback, useState}  from 'react'
-import { StyleSheet, TouchableOpacity,Text } from 'react-native'
-import { LearnMoreLinks } from 'react-native/Libraries/NewAppScreen';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import colors from '../resorces/colors';
 
 interface Props {
-    onPress:() => void;
-    buttonText:string,
-    Style:any;
+  onPress: () => void;
+  buttonText: string;
+  style: any;
 }
 
-
-export const ToggleButton: React.FC<Props> = ({onPress,buttonText,Style}) => {
-    const [toggle, settoggle] = useState(false);
-    const pressed = useCallback(() =>
-    {
-        onPress();
-        settoggle(!toggle);
-    },[onPress,settoggle,toggle]);
-    const BorderColor = toggle? colors.secondaryColor : "grey"
-    return(
-        <TouchableOpacity
-            onPress={() =>pressed()}
-            style={[styles.button,Style,{borderColor:BorderColor}]}
-            
-        >
-            <Text>{buttonText}</Text>
-        </TouchableOpacity>
-    );
+interface State {
+  toggle: boolean;
+  borderColor: string;
 }
-const styles = StyleSheet.create({
-    button:{
-        justifyContent:'center',
-        borderWidth:0.2,
-        padding:5,
-        borderRadius:7,
-        paddingHorizontal:14
+
+export class ToggleButton extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      toggle: false,
+      borderColor: 'grey',
+    };
+  }
+  componentDidMount() {
+    this.setState({toggle: false});
+  }
+  pressed = (onPress: () => void, toggle: boolean) => {
+    onPress();
+    this.setState({toggle: !toggle});
+    if (toggle) {
+      this.setState({borderColor: colors.Accent});
+    } else {
+      this.setState({borderColor: 'grey'});
     }
-})
+  };
+  render() {
+    return (
+      <TouchableOpacity
+        onPress={() => this.pressed(this.props.onPress, this.state.toggle)}
+        style={[
+          styles.button,
+          this.props.style,
+          {borderColor: this.state.borderColor},
+        ]}>
+        <Text>{this.props.buttonText}</Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  button: {
+    justifyContent: 'center',
+    borderWidth: 1,
+    padding: 9,
+    borderRadius: 8,
+    paddingHorizontal: 7,
+  },
+});

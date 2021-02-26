@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import colors from '../resorces/colors';
+import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   onPress: () => void;
@@ -12,27 +12,27 @@ interface Props {
 export class FilledButton extends React.Component<Props> {
   render() {
     return (
-      <Ripple
+      <TouchableHighlight
         onPress={() => this.props.onPress()}
         style={[styles.button, this.props.Style]}>
-        <Text style={styles.text}>{this.props.buttonText}</Text>
-      </Ripple>
+        <Text style={(textStyles.bodyBold, styles.buttonText)}>
+          {this.props.buttonText}
+        </Text>
+      </TouchableHighlight>
     );
   }
 }
 const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
-    padding: 5,
-    borderRadius: 7,
+    borderRadius: 8,
     width: '100%',
-    marginVertical: 24,
-    height: 50,
+    marginVertical: 32,
+    height: 48,
     alignItems: 'center',
     backgroundColor: colors.Accent,
   },
-  text: {
+  buttonText: {
     color: 'white',
-    fontSize: 16,
   },
 });

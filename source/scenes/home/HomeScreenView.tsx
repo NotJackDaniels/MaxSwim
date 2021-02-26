@@ -1,42 +1,51 @@
-import React from "react"
-import { Button, Text } from "react-native"
-import HomeScreenPresenter, { HomeScreenViewInterface } from "./HomeScreenPresenter"
-import strings from "../../resorces/strings";
+import React from 'react';
+import {Button, Text} from 'react-native';
+import HomeScreenPresenter, {
+  HomeScreenViewInterface,
+} from './HomeScreenPresenter';
+import strings from '../../resorces/strings';
 
 interface Props {
-  presenter: HomeScreenPresenter
+  presenter: HomeScreenPresenter;
 }
 
 interface State {
-  counterText: string
+  counterText: string;
 }
 
-export default class HomeScreenView extends React.Component<Props, State> implements HomeScreenViewInterface {
-  private readonly presenter: HomeScreenPresenter
+export default class HomeScreenView
+  extends React.Component<Props, State>
+  implements HomeScreenViewInterface {
+  private readonly presenter: HomeScreenPresenter;
 
   constructor(props: Props) {
-    super(props)
+    super(props);
 
-    this.presenter = this.props.presenter
-    this.presenter.view = this
+    this.presenter = this.props.presenter;
+    this.presenter.view = this;
 
     this.state = {
-      counterText: ""
-    }
+      counterText: '',
+    };
   }
 
   componentDidMount() {
-    this.presenter.didMount()
+    this.presenter.didMount();
   }
 
   updateCounterText(text: string) {
-    this.setState({ counterText: text })
+    this.setState({counterText: text});
   }
 
   render() {
-    return (<>
-      <Text>{this.state.counterText}</Text>
-      <Button title={strings.home.counterButtonTitle} onPress={this.presenter.didPressCounterButton}/>
-    </>)
+    return (
+      <>
+        <Text>{this.state.counterText}</Text>
+        <Button
+          title={strings.home.counterButtonTitle}
+          onPress={this.presenter.didPressCounterButton}
+        />
+      </>
+    );
   }
 }

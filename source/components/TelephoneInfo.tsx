@@ -1,56 +1,55 @@
-import React, {CSSProperties, useCallback, useState}  from 'react'
-import { StyleSheet, TouchableOpacity,Text, View,Image } from 'react-native'
-import margins from '../resorces/margins';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
+import colors from '../resorces/colors';
 import strings from '../resorces/strings';
+import {textStyles} from '../resorces/textStyles';
 
 interface Props {
-    telephone:string,
-    name:string,
-    isMain:boolean,
+  telephone: string;
+  name: string;
+  isMain: boolean;
 }
 
-
-export const TelephoneInfo: React.FC<Props> = ({name,telephone,isMain}) => {
-    return(
-        <View style={{flexDirection:'row'}}>
-            <View>
-                <Text style={styles.name}>{name}</Text>
-                <Text >{telephone}</Text>
-            </View>
-            {isMain? <Text style={styles.main}>Основной</Text>:{}}
-            <TouchableOpacity style={styles.opacity}>
-                <Image source={require('../../source/resorces/images/Group.png')}/>
-            </TouchableOpacity>
+export class TelephoneInfo extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+  render() {
+    return (
+      <View style={styles.rowView}>
+        <View>
+          <Text style={(textStyles.footNote, styles.telephoneName)}>
+            {this.props.name}
+          </Text>
+          <Text style={textStyles.body}>{this.props.telephone}</Text>
         </View>
+        <Text style={[styles.telephoneType, textStyles.footNoteBold]}>
+          {this.props.isMain
+            ? strings.addLearner.main
+            : strings.addLearner.active}
+        </Text>
+        <TouchableOpacity style={styles.deleteButton}>
+          <Image source={require('../../source/resorces/images/Group.png')} />
+        </TouchableOpacity>
+      </View>
     );
+  }
 }
+
 const styles = StyleSheet.create({
-    button:{
-        justifyContent:'center',
-        padding:5,
-        borderRadius:7,
-        width:'100%',
-        marginVertical:margins.defaultMarginVertical,
-        height:50,
-        alignItems:"center",
-    },
-    text:{
-        color:'white',
-        fontSize:16
-    },
-    name:{
-        color:'rgba(147, 160, 160, 1)',
-        fontSize:10,
-    },
-    opacity:{
-        position:'absolute',
-         alignSelf:'center',
-         right:0,
-         marginRight:7,
-    },
-    main:{
-        color:'rgba(25, 222, 139, 1)',
-        fontSize:10,
-        marginRight:5
-    }
-})
+  telephoneName: {
+    color: colors.Shade4,
+  },
+  rowView: {
+    flexDirection: 'row',
+  },
+  deleteButton: {
+    position: 'absolute',
+    alignSelf: 'center',
+    right: 0,
+    marginRight: 7,
+  },
+  telephoneType: {
+    color: colors.Success,
+  },
+});
