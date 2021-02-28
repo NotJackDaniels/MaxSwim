@@ -17,20 +17,17 @@ export class ToggleButton extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      toggle: false,
-      borderColor: 'grey',
+      toggle: true,
+      borderColor: colors.Shade2,
     };
-  }
-  componentDidMount() {
-    this.setState({toggle: false});
   }
   pressed = (onPress: () => void, toggle: boolean) => {
     onPress();
     this.setState({toggle: !toggle});
     if (toggle) {
-      this.setState({borderColor: colors.Accent});
+      this.setState({borderColor: colors.Shade1});
     } else {
-      this.setState({borderColor: 'grey'});
+      this.setState({borderColor: colors.Shade2});
     }
   };
   render() {
@@ -54,6 +51,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 9,
     borderRadius: 8,
-    paddingHorizontal: 7,
+    paddingHorizontal: 16,
   },
 });

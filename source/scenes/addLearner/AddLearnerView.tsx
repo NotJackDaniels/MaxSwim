@@ -13,12 +13,14 @@ import AddLearnerScreenPresenter, {
 import strings from '../../resorces/strings';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Input} from '../../components/Input';
-import CheckBox from '@react-native-community/checkbox';
 import {ToggleButton} from '../../components/ToggleButton';
 import colors from '../../resorces/colors';
 import {FilledButton} from '../../components/FilledButton';
 import {TelephoneInfo} from '../../components/TelephoneInfo';
 import {textStyles} from '../../resorces/textStyles';
+import CheckBox from '../../components/CustomCheckBox';
+import {RadioButtons} from '../../components/RadioButtons';
+import CameraIcon from '../../resorces/images/camera.svg';
 
 interface Props {
   presenter: AddLearnerScreenPresenter;
@@ -60,19 +62,22 @@ export default class AddLearnerScreenView
 
   selectValue = () => {};
 
+  setToggleCheckBox = (newValue: boolean) => {
+    this.setState({toggleCheckBox: newValue});
+  };
+
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image source={{}} style={styles.image} />
           <TouchableOpacity style={styles.imageOverlap} onPress={() => {}}>
-            <Image
-              source={require('../../resorces/images/addPhoto.jpg')}
-              style={styles.imageSize}
-            />
+            <CameraIcon height={24} width={24} />
           </TouchableOpacity>
         </View>
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.information}
           </Text>
@@ -95,80 +100,85 @@ export default class AddLearnerScreenView
           <Input
             placeholder={strings.addLearner.note}
             enableMultiline={true}
-            numberOfLines={5}
+            numberOfLines={2}
             value={this.state.note}
           />
         </SafeAreaView>
-        <View>
-          <Text style={styles.formHeading}>
+        <View style={styles.container}>
+          <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.telephones}
           </Text>
           <TelephoneInfo
-            name={'Остапова Анна'}
-            telephone={'+7888888888'}
+            name={strings.addLearner.telephoneExampleName}
+            telephone={strings.addLearner.telephoneExampleNumber}
             isMain={true}
           />
-          <Input placeholder={'Имя контакта'} value={this.state.contactName} />
-          <Input placeholder={'Номер'} value={this.state.number} />
+        </View>
+        <View style={styles.separator} />
+        <View style={styles.container}>
+          <Input
+            placeholder={strings.addLearner.contactName}
+            value={this.state.contactName}
+          />
+          <Input
+            placeholder={strings.addLearner.number}
+            value={this.state.number}
+          />
         </View>
         <View style={styles.rowElements}>
           <CheckBox
-            style={styles.checkBox}
-            disabled={false}
+            label={strings.addLearner.main}
             value={this.state.toggleCheckBox}
-            boxType={'square'}
-            onTintColor={colors.Accent}
-            onCheckColor={colors.Accent}
+            onChange={(newValue) => this.setToggleCheckBox(newValue)}
           />
-          <Text style={{textAlign: 'center'}}>Основной</Text>
           <ToggleButton
             style={styles.toggleButton}
             onPress={this.selectValue}
-            buttonText={'Добавить еще'}
+            buttonText={strings.addLearner.addNumber}
           />
         </View>
-        <View>
-          <Text style={styles.formHeading}>
+        <View style={styles.container}>
+          <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.subscription}
           </Text>
-          <ScrollView style={styles.row} horizontal={true}>
-            <ToggleButton
-              style={styles.lessonsButton}
-              onPress={this.selectValue}
-              buttonText={'4 занятия'}
-            />
-            <ToggleButton
-              style={styles.lessonsButton}
-              onPress={this.selectValue}
-              buttonText={'8 занятий'}
-            />
-            <ToggleButton
-              style={styles.lessonsButton}
-              onPress={this.selectValue}
-              buttonText={'12 занятий'}
-            />
-            <ToggleButton
-              style={styles.lessonsButton}
-              onPress={this.selectValue}
-              buttonText={'Нет'}
-            />
-          </ScrollView>
-          <Input placeholder={'Другое количество'} value={this.state.lessons} />
         </View>
-        <FilledButton
-          onPress={() => console.warn('clicked!')}
-          buttonText={'Создать'}
-        />
+        <ScrollView
+          style={styles.row}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}>
+          <RadioButtons style={styles.lessonsButton} />
+        </ScrollView>
+        <View style={styles.container}>
+          <Input
+            placeholder={strings.addLearner.lessonsNumber}
+            value={this.state.lessons}
+          />
+        </View>
+        <View style={styles.container}>
+          <FilledButton
+            onPress={() => console.log('clicked!')}
+            buttonText={strings.addLearner.createContact}
+          />
+        </View>
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  separator: {
+    marginLeft: 16,
+    width: '100%',
+    backgroundColor: colors.Shade2,
+    height: 1,
+    marginBottom: 16,
+  },
+  mainContainer: {
     flex: 1,
-    paddingHorizontal: 16,
     backgroundColor: 'white',
+  },
+  container: {
+    paddingHorizontal: 16,
   },
   imageContainer: {
     alignSelf: 'center',
@@ -190,7 +200,12 @@ const styles = StyleSheet.create({
     height: 40,
     top: 0,
     right: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: colors.Accent,
+    borderRadius: 40 / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 4,
+    borderColor: 'white',
   },
   imageSize: {
     width: 40,
@@ -207,12 +222,13 @@ const styles = StyleSheet.create({
     marginTop: 24,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 24,
+    marginBottom: 32,
+    marginHorizontal: 16,
   },
   row: {
-    marginTop: 24,
     flexDirection: 'row',
-    marginVertical: 24,
+    marginBottom: 16,
+    marginLeft: 16,
   },
 
   toggleButton: {
@@ -223,7 +239,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 25,
     width: 25,
-    borderWidth: 0.1,
+    borderWidth: 1,
+    borderColor: colors.Accent,
   },
   lessonsButton: {
     marginRight: 8,

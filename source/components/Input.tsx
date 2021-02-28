@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import colors from '../resorces/colors';
+import {StyleSheet, TextInput} from 'react-native';
+import {TextInput as PaperTextInput} from 'react-native-paper';
+import inputTheme from '../resorces/inputTheme';
+import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   placeholder: string;
@@ -27,27 +28,36 @@ export class Input extends React.Component<Props, State> {
   };
   render() {
     return (
-      <TextInput
+      <PaperTextInput
         mode="outlined"
         label={this.props.placeholder}
-        placeholder={this.props.placeholder}
-        style={styles.input}
-        placeholderTextColor={colors.Shade4}
-        multiline={this.props.enableMultiline}
-        numberOfLines={this.props.numberOfLines}
-        theme={{
-          colors: {
-            primary: colors.Accent,
-          },
-        }}
+        style={[styles.paperTextInput, textStyles.body]}
+        theme={inputTheme}
+        render={(props) => (
+          <TextInput
+            {...props}
+            style={[
+              styles.textInput,
+              {height: this.props.enableMultiline ? 104 : 48},
+            ]}
+            multiline={this.props.enableMultiline}
+            numberOfLines={this.props.numberOfLines}
+          />
+        )}
       />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  input: {
+  paperTextInput: {
     marginBottom: 16,
     backgroundColor: 'white',
+    borderRadius: 8,
+    height: 48,
+  },
+  textInput: {
+    textAlignVertical: 'top',
+    padding: 16,
   },
 });

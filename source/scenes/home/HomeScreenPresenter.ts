@@ -1,30 +1,30 @@
-import Dependencies from "../../services/Dependencies";
-import strings from "../../resorces/strings";
+import Dependencies from '../../services/Dependencies';
+import strings from '../../resorces/strings';
 
 export interface HomeScreenViewInterface {
-  updateCounterText(text: string): void
+  updateCounterText(text: string): void;
 }
 
 export default class HomeScreenPresenter {
-  view?: HomeScreenViewInterface
+  view?: HomeScreenViewInterface;
 
-  private counter: number = 0
-  private dependencies: Dependencies
+  private counter: number = 0;
+  private dependencies: Dependencies;
 
   constructor(dependencies: Dependencies) {
-    this.dependencies = dependencies
+    this.dependencies = dependencies;
   }
 
   didMount = () => {
-    this.updateCounter()
-  }
+    this.updateCounter();
+  };
 
   didPressCounterButton = () => {
-    this.counter += 1
-    this.updateCounter()
-  }
+    this.counter += 1;
+    this.updateCounter();
+  };
 
   private updateCounter() {
-    this.view?.updateCounterText(strings.home.counterText + this.counter)
+    this.view?.updateCounterText(strings.home.counterText + this.counter);
   }
 }

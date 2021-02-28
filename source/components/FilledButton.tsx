@@ -9,12 +9,30 @@ interface Props {
   Style?: any;
 }
 
-export class FilledButton extends React.Component<Props> {
+interface State {
+  isPressed: boolean;
+}
+
+export class FilledButton extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isPressed: false,
+    };
+  }
+
+  setPressed = (newValue: boolean) => {
+    this.setState({isPressed: newValue});
+  };
+
   render() {
     return (
       <TouchableHighlight
         onPress={() => this.props.onPress()}
-        style={[styles.button, this.props.Style]}>
+        style={[styles.button, this.props.Style]}
+        underlayColor={colors.AccentLight}
+        onHideUnderlay={() => this.setPressed(false)}
+        onShowUnderlay={() => this.setPressed(true)}>
         <Text style={(textStyles.bodyBold, styles.buttonText)}>
           {this.props.buttonText}
         </Text>
