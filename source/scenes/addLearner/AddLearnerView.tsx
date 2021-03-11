@@ -117,10 +117,12 @@ export default class AddLearnerScreenView
         <View style={styles.imageContainer}>
           <Image source={{}} style={styles.image} />
           <TouchableOpacity style={styles.imageOverlap} onPress={() => {}}>
-            <CameraIcon height={24} width={24} />
+            <View style={styles.imageBg}>
+              <CameraIcon height={24} width={24}  />
+            </View>
           </TouchableOpacity>
         </View>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.information}
           </Text>
@@ -165,7 +167,7 @@ export default class AddLearnerScreenView
             value={this.state.note}
             onChangeHandle={(value: string) => this.setState({note: value})}
           />
-        </SafeAreaView>
+        </View>
         <View style={styles.container}>
           <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.telephones}
@@ -267,21 +269,24 @@ const styles = StyleSheet.create({
   },
   imageOverlap: {
     position: 'absolute',
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     top: 0,
     right: 0,
-    backgroundColor: colors.Accent,
-    borderRadius: 40 / 2,
+    backgroundColor: 'white',
+    borderRadius: 48 / 2,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 4,
     borderColor: 'white',
   },
-  imageSize: {
+  imageBg: {
+    backgroundColor: colors.Accent,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 40 / 2,
   },
   formHeading: {
     marginBottom: 16,

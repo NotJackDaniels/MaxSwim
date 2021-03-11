@@ -33,24 +33,27 @@ export class FilledButton extends React.Component<Props, State> {
         underlayColor={colors.AccentLight}
         onHideUnderlay={() => this.setPressed(false)}
         onShowUnderlay={() => this.setPressed(true)}>
-        <Text style={(textStyles.bodyBold, styles.buttonText)}>
+        <Text style={[textStyles.bodyBold, styles.buttonText, ]}>
           {this.props.buttonText}
         </Text>
       </TouchableHighlight>
     );
   }
 }
+
 const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     borderRadius: 8,
     width: '100%',
-    marginVertical: 32,
+    marginTop: 8,
+    marginBottom: 40,
     height: 48,
     alignItems: 'center',
     backgroundColor: colors.Accent,
   },
   buttonText: {
     color: 'white',
+    fontWeight: '700',
   },
 });

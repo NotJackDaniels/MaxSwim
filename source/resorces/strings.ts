@@ -9,7 +9,7 @@ const strings = {
     information: 'Информация',
     telephones: 'Телефоны',
     subscription: 'Абонемент',
-    main: 'основной',
+    main: 'Основной',
     active: 'активный',
     surname: 'Фамилия',
     name: 'Имя',
@@ -20,9 +20,9 @@ const strings = {
     number: 'Номер',
     telephoneExampleNumber: '+7-917-231-74-13',
     telephoneExampleName: 'Остапова Инна Михайловна',
-    addNumber: 'добавить еще',
+    addNumber: 'Добавить еще',
     lessonsNumber: 'Другое количество',
-    createContact: 'создать',
+    createContact: 'Создать',
   },
 };
 

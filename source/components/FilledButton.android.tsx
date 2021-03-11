@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import colors from '../resorces/colors';
+import { textStyles } from '../resorces/textStyles';
 
 interface Props {
   onPress: () => void;
@@ -15,7 +16,7 @@ export class FilledButton extends React.Component<Props> {
       <Ripple
         onPress={() => this.props.onPress()}
         style={[styles.button, this.props.Style]}>
-        <Text style={styles.text}>{this.props.buttonText}</Text>
+        <Text style={[textStyles.bodyBold, styles.text,]}>{this.props.buttonText}</Text>
       </Ripple>
     );
   }
@@ -23,17 +24,15 @@ export class FilledButton extends React.Component<Props> {
 const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
-    padding: 5,
-    borderRadius: 7,
+    borderRadius: 8,
     width: '100%',
     marginTop: 8,
     marginBottom: 16,
-    height: 50,
+    height: 48,
     alignItems: 'center',
     backgroundColor: colors.Accent,
   },
   text: {
     color: 'white',
-    fontSize: 16,
   },
 });
