@@ -6,12 +6,13 @@ import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   style: any;
+  value: number | string;
+  setNewValue: (lessons: number) => void;
 }
 
 interface State {
   toggle: boolean;
   borderColor: string;
-  value: number | string;
   key: number;
 }
 
@@ -21,22 +22,18 @@ export class RadioButtons extends React.Component<Props, State> {
     this.state = {
       toggle: false,
       borderColor: 'grey',
-      value: -1,
       key: -1,
     };
   }
-  pressed = (value: string | number) => {
-    this.setState({value: value});
-  };
   render() {
     return lessonsNumber.map((item) => (
       <TouchableOpacity
         key={item.key}
-        onPress={() => this.pressed(item.value)}
+        onPress={() => this.props.setNewValue(item.value)}
         style={[
           styles.button,
           this.props.style,
-          this.state.value == item.value
+          this.props.value == item.value
             ? {borderColor: colors.Accent}
             : {borderColor: colors.Shade2},
         ]}>

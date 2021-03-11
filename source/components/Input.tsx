@@ -8,8 +8,9 @@ interface Props {
   placeholder: string;
   heights?: number;
   enableMultiline?: boolean;
-  value?: string;
+  value: string;
   numberOfLines?: number;
+  onChangeHandle: (value: string) => void;
 }
 
 interface State {
@@ -23,16 +24,16 @@ export class Input extends React.Component<Props, State> {
       newValue: '',
     };
   }
-  setNewValue = (e: string) => {
-    this.setState({newValue: e});
-  };
+
   render() {
     return (
       <PaperTextInput
+        value={this.props.value}
         mode="outlined"
         label={this.props.placeholder}
         style={[styles.paperTextInput, textStyles.body]}
         theme={inputTheme}
+        onChangeText={(value) => this.props.onChangeHandle(value)}
         render={(props) => (
           <TextInput
             {...props}

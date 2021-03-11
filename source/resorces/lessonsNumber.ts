@@ -1,6 +1,6 @@
 const lessonsNumber: {
   key: number;
-  value: number | string;
+  value: number;
   label: string;
 }[] = [
   {key: 0, value: 4, label: '4 занятия'},
