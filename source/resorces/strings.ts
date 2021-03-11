@@ -23,6 +23,7 @@ const strings = {
     addNumber: 'Добавить еще',
     lessonsNumber: 'Другое количество',
     createContact: 'Создать',
+    error: 'Неверное значение!',
   },
 };
 

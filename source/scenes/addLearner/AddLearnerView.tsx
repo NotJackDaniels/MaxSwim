@@ -11,7 +11,6 @@ import AddLearnerScreenPresenter, {
   AddLearnerScreenViewInterface,
 } from './AddLearnerPresenter';
 import strings from '../../resorces/strings';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {Input} from '../../components/Input';
 import {ToggleButton} from '../../components/ToggleButton';
 import colors from '../../resorces/colors';
@@ -108,6 +107,14 @@ export default class AddLearnerScreenView
       this.setState({lessons: parseValue});
     }
   };
+  hasErrors = (errorType: string) => {
+    if (errorType === 'numbers') {
+      return !(
+        parseInt(this.state.inputLessons) || this.state.inputLessons === ''
+      );
+    }
+    return false;
+  };
 
   render() {
     return (
@@ -118,7 +125,7 @@ export default class AddLearnerScreenView
           <Image source={{}} style={styles.image} />
           <TouchableOpacity style={styles.imageOverlap} onPress={() => {}}>
             <View style={styles.imageBg}>
-              <CameraIcon height={24} width={24}  />
+              <CameraIcon height={24} width={24} />
             </View>
           </TouchableOpacity>
         </View>
@@ -130,11 +137,15 @@ export default class AddLearnerScreenView
             placeholder={strings.addLearner.surname}
             value={this.state.surname}
             onChangeHandle={(value: string) => this.setState({surname: value})}
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
           <Input
             placeholder={strings.addLearner.name}
             value={this.state.name}
             onChangeHandle={(value: string) => this.setState({name: value})}
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
           <Input
             placeholder={strings.addLearner.patronymic}
@@ -142,6 +153,8 @@ export default class AddLearnerScreenView
             onChangeHandle={(value: string) =>
               this.setState({patronymic: value})
             }
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
           <TouchableOpacity style={styles.picker} onPress={this.showPicker}>
             <Text
@@ -166,6 +179,8 @@ export default class AddLearnerScreenView
             numberOfLines={2}
             value={this.state.note}
             onChangeHandle={(value: string) => this.setState({note: value})}
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
         </View>
         <View style={styles.container}>
@@ -186,11 +201,15 @@ export default class AddLearnerScreenView
             onChangeHandle={(value: string) =>
               this.setState({contactName: value})
             }
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
           <Input
             placeholder={strings.addLearner.number}
             value={this.state.number}
             onChangeHandle={(value: string) => this.setState({number: value})}
+            errorType={'no'}
+            hasErrors={this.hasErrors}
           />
         </View>
         <View style={styles.rowElements}>
@@ -225,6 +244,9 @@ export default class AddLearnerScreenView
             placeholder={strings.addLearner.lessonsNumber}
             value={this.state.inputLessons}
             onChangeHandle={(value: string) => this.changeLessons(value)}
+            marginBottom={0}
+            errorType={'numbers'}
+            hasErrors={this.hasErrors}
           />
         </View>
         <View style={styles.container}>
@@ -303,7 +325,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: 8,
     marginLeft: 16,
   },
 
