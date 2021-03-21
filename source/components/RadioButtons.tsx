@@ -5,7 +5,6 @@ import lessonsNumber from '../resorces/lessonsNumber';
 import {textStyles} from '../resorces/textStyles';
 
 interface Props {
-  style: any;
   value: number | string;
   setNewValue: (lessons: number) => void;
 }
@@ -32,8 +31,8 @@ export class RadioButtons extends React.Component<Props, State> {
         onPress={() => this.props.setNewValue(item.value)}
         style={[
           styles.button,
-          this.props.style,
-          this.props.value == item.value
+          item.value === 4 ? {marginLeft: 16} : {marginLeft: 8},
+          this.props.value === item.value
             ? {borderColor: colors.Accent}
             : {borderColor: colors.Shade2},
         ]}>

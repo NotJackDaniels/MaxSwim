@@ -40,6 +40,7 @@ interface State {
   inputLessons: string;
   isVisible: boolean;
   showDate: String;
+  dateColor: string;
 }
 
 export default class AddLearnerScreenView
@@ -64,9 +65,9 @@ export default class AddLearnerScreenView
       isVisible: false,
       showDate: strings.addLearner.date,
       inputLessons: '',
+      dateColor: colors.Shade2,
     };
   }
-
   selectValue = () => {};
 
   setToggleCheckBox = (newValue: boolean) => {
@@ -83,9 +84,9 @@ export default class AddLearnerScreenView
       isVisible: true,
     });
   };
-
   handlePicker = (datetime: Date) => {
     this.setState({
+      dateColor: 'black',
       isVisible: false,
       showDate: moment(datetime).format('DD MMMM YYYY'),
       date: moment(datetime, 'DD.MM.YYYY').unix(),
@@ -160,7 +161,7 @@ export default class AddLearnerScreenView
             <Text
               style={[
                 textStyles.body,
-                {color: colors.Shade2},
+                {color: this.state.dateColor},
                 styles.dateText,
               ]}>
               {this.state.showDate}
@@ -234,7 +235,6 @@ export default class AddLearnerScreenView
           horizontal={true}
           showsHorizontalScrollIndicator={false}>
           <RadioButtons
-            style={styles.lessonsButton}
             value={this.state.lessons}
             setNewValue={this.onChangeHandle}
           />
@@ -326,7 +326,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: 8,
-    marginLeft: 16,
   },
 
   toggleButton: {
@@ -339,9 +338,6 @@ const styles = StyleSheet.create({
     width: 25,
     borderWidth: 1,
     borderColor: colors.Accent,
-  },
-  lessonsButton: {
-    marginRight: 8,
   },
   picker: {
     borderRadius: 8,

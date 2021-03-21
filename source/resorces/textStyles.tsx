@@ -4,12 +4,12 @@ export const textStyles = StyleSheet.create({
   title2: {
     fontWeight: '700',
     fontSize: 24,
-    fontFamily: 'Raleway-Regular',
+    fontFamily: 'Raleway-Bold',
   },
   title3: {
     fontWeight: '700',
     fontSize: 20,
-    fontFamily: 'Raleway-Regular',
+    fontFamily: 'Raleway-Bold',
   },
   body: {
     fontWeight: '500',
@@ -21,7 +21,7 @@ export const textStyles = StyleSheet.create({
   bodyBold: {
     fontWeight: '700',
     fontSize: 16,
-    fontFamily: 'Raleway-Regular',
+    fontFamily: 'Raleway-Bold',
     fontVariant: ['lining-nums'],
   },
   footNote: {
@@ -33,7 +33,7 @@ export const textStyles = StyleSheet.create({
   footNoteBold: {
     fontWeight: '700',
     fontSize: 12,
-    fontFamily: 'Raleway-Regular',
+    fontFamily: 'Raleway-Bold',
     fontVariant: ['lining-nums'],
   },
   footNoteSmall: {
