@@ -25,6 +25,19 @@ const strings = {
     createContact: 'Создать',
     error: 'Неверное значение!',
   },
+  card: {
+    allLessons: 'Всего занятий',
+    attendance: 'Посещаемость',
+    call: 'Позвонить',
+    edit: 'Редактировать',
+    noLessons: 'Нет занятий',
+    lessThenFive: 'Занятия',
+    moreThenFive: 'Занятий',
+  },
+  cardTest: {
+    name: 'Иванов Иван Иванович',
+    lessons: 'Занятий',
+  },
 };
 
 export default strings;

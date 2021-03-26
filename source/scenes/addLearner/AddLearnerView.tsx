@@ -22,6 +22,7 @@ import {RadioButtons} from '../../components/RadioButtons';
 import CameraIcon from '../../resorces/images/camera.svg';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import {StudentCard} from '../../components/StudentCard';
 
 interface Props {
   presenter: AddLearnerScreenPresenter;
@@ -253,6 +254,7 @@ export default class AddLearnerScreenView
           <FilledButton
             onPress={() => console.log('clicked!')}
             buttonText={strings.addLearner.createContact}
+            Style={styles.filledButton}
           />
         </View>
       </ScrollView>
@@ -349,5 +351,8 @@ const styles = StyleSheet.create({
   },
   dateText: {
     marginHorizontal: 2,
+  },
+  filledButton: {
+    width: '100%',
   },
 });

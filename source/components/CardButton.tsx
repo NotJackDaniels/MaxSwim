@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import colors from '../resorces/colors';
 import {textStyles} from '../resorces/textStyles';
 
@@ -8,18 +7,19 @@ interface Props {
   onPress: () => void;
   buttonText: string;
   Style?: any;
+  textColor: string;
 }
 
-export class FilledButton extends React.Component<Props> {
+export class CardButton extends React.Component<Props> {
   render() {
     return (
-      <Ripple
+      <TouchableOpacity
         onPress={() => this.props.onPress()}
         style={[styles.button, this.props.Style]}>
-        <Text style={[textStyles.bodyBold, styles.text]}>
+        <Text style={[textStyles.footNoteBold, {color: this.props.textColor}]}>
           {this.props.buttonText}
         </Text>
-      </Ripple>
+      </TouchableOpacity>
     );
   }
 }
@@ -32,8 +32,5 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     backgroundColor: colors.Accent,
-  },
-  text: {
-    color: 'white',
   },
 });
