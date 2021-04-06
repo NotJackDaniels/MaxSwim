@@ -1,17 +1,14 @@
 import Dependencies from "../../services/Dependencies";
 import strings from "../../resorces/strings";
 
-export interface AddLearnerScreenViewInterface {
-    
-}
+export interface AddLearnerScreenViewInterface {}
 
 export default class AddLearnerScreenPresenter {
-    view?: AddLearnerScreenViewInterface
+  view?: AddLearnerScreenViewInterface;
 
-    private dependencies: Dependencies
+  private dependencies: Dependencies;
 
-    constructor(dependencies: Dependencies) {
-        this.dependencies = dependencies
-    }
+  constructor(dependencies: Dependencies) {
+    this.dependencies = dependencies;
+  }
 }
-

@@ -1,12 +1,10 @@
-import React from 'react'
-import 'react-native-gesture-handler'
+import React from 'react';
+import 'react-native-gesture-handler';
 
-import MainNavigator from "./source/navigation/MainNavigator"
+import MainNavigator from './source/navigation/MainNavigator';
 
 const App = () => {
-  return (
-    <MainNavigator/>
-  );
+  return <MainNavigator />;
 };
 
-export default App
+export default App;

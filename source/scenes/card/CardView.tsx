@@ -1,16 +1,19 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import colors from '../resorces/colors';
-import TestImage from '../resorces/images/testImageCard.svg';
-import strings from '../resorces/strings';
-import {textStyles} from '../resorces/textStyles';
-import {CardButton} from './CardButton';
+import {CardButton} from '../../components/CardButton';
+import colors from '../../resorces/colors';
+import {textStyles} from '../../resorces/textStyles';
+import TestImage from '../../resorces/images/testImageCard.svg';
+import CardPresenter, {CardViewInterface} from './CardPresenter';
+import strings from '../../resorces/strings';
+import I18n from '../../i18n/pluralizer';
 
 interface Props {
   allLessons: number;
   attendance: number;
   lessonsLeft: number;
   telephone: String;
+  presenter: CardPresenter;
 }
 
 interface State {
@@ -18,9 +21,14 @@ interface State {
 }
 
 interface State {}
-export class StudentCard extends React.Component<Props, State> {
+export class StudentCard
+  extends React.Component<Props, State>
+  implements CardViewInterface {
+  private readonly presenter: CardPresenter;
   constructor(props: Props) {
     super(props);
+    this.presenter = this.props.presenter;
+    this.presenter.view = this;
     this.state = {
       lessons: '',
     };
@@ -32,13 +40,6 @@ export class StudentCard extends React.Component<Props, State> {
       return colors.Warning;
     }
     return colors.Success;
-  };
-
-  lessonsText = (): String => {
-    if (this.props.lessonsLeft < 5) {
-      return strings.card.lessThenFive;
-    }
-    return strings.card.moreThenFive;
   };
 
   render() {
@@ -57,9 +58,7 @@ export class StudentCard extends React.Component<Props, State> {
                 styles.lessonsLeftText,
                 {color: this.lessonsBg()},
               ]}>
-              {this.props.lessonsLeft
-                ? `${this.props.lessonsLeft} ${this.lessonsText()}`
-                : strings.card.noLessons}
+              {I18n.t('lessons', {count: this.props.lessonsLeft})}
             </Text>
             <View style={styles.itemRow}>
               <View style={styles.statistic}>

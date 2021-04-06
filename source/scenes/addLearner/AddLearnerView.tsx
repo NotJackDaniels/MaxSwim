@@ -22,7 +22,6 @@ import {RadioButtons} from '../../components/RadioButtons';
 import CameraIcon from '../../resorces/images/camera.svg';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import {StudentCard} from '../../components/StudentCard';
 
 interface Props {
   presenter: AddLearnerScreenPresenter;
