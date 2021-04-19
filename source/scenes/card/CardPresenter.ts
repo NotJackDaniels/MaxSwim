@@ -32,7 +32,7 @@ export default class CardPresenter {
     this.view?.setLessonsBg(colors.Success);
   };
   parseStringLessons = (allLessons: number) => {
-    if (allLessons > 10000) {
+    if (allLessons > 9999) {
       this.view?.setAmountOfLessons(
         numbro(allLessons).format({
           output: 'number',
