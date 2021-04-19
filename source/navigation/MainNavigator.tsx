@@ -30,8 +30,8 @@ export default class MainNavigator extends React.Component {
     let presenter = new CardPresenter(this.dependencies);
     return (
       <StudentCard
-        allLessons={40}
-        lessonsLeft={40}
+        allLessons={0}
+        lessonsLeft={10}
         attendance={21}
         telephone={'2321'}
         presenter={presenter}

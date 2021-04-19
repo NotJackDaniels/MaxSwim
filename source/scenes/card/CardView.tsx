@@ -17,10 +17,11 @@ interface Props {
 }
 
 interface State {
-  lessons: String;
+  lessons: string;
+  lessonsBg: string;
+  allLessons: string;
 }
 
-interface State {}
 export class StudentCard
   extends React.Component<Props, State>
   implements CardViewInterface {
@@ -31,15 +32,22 @@ export class StudentCard
     this.presenter.view = this;
     this.state = {
       lessons: '',
+      lessonsBg: '',
+      allLessons: '',
     };
   }
-  lessonsBg = () => {
-    if (this.props.lessonsLeft === 0) {
-      return colors.Error;
-    } else if (this.props.lessonsLeft < 4) {
-      return colors.Warning;
-    }
-    return colors.Success;
+
+  componentDidMount() {
+    this.presenter.didMount(this.props.lessonsLeft, this.props.allLessons);
+  }
+
+  setLessonsBg = (bg: string) => {
+    console.warn(bg);
+    this.setState({lessonsBg: bg});
+  };
+
+  setAmountOfLessons = (lessons: string) => {
+    this.setState({allLessons: lessons});
   };
 
   render() {
@@ -56,7 +64,7 @@ export class StudentCard
               style={[
                 textStyles.footNoteBold,
                 styles.lessonsLeftText,
-                {color: this.lessonsBg()},
+                {color: this.state.lessonsBg},
               ]}>
               {I18n.t('lessons', {count: this.props.lessonsLeft})}
             </Text>
@@ -65,7 +73,7 @@ export class StudentCard
                 <Text style={[textStyles.footNoteSmall, styles.smallTextColor]}>
                   {strings.card.allLessons}
                 </Text>
-                <Text style={textStyles.body}>{this.props.allLessons}</Text>
+                <Text style={textStyles.body}>{this.state.allLessons}</Text>
               </View>
               <View>
                 <Text style={[textStyles.footNoteSmall, styles.smallTextColor]}>
