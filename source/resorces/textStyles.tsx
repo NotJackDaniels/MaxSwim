@@ -12,7 +12,6 @@ export const textStyles = StyleSheet.create({
     fontFamily: 'Raleway-Bold',
   },
   body: {
-    fontWeight: '500',
     fontSize: 16,
     fontFamily: 'Raleway-Regular',
     fontVariant: ['lining-nums'],
@@ -25,7 +24,6 @@ export const textStyles = StyleSheet.create({
     fontVariant: ['lining-nums'],
   },
   footNote: {
-    fontWeight: '500',
     fontSize: 12,
     fontFamily: 'Raleway-Regular',
     fontVariant: ['lining-nums'],
@@ -37,7 +35,6 @@ export const textStyles = StyleSheet.create({
     fontVariant: ['lining-nums'],
   },
   footNoteSmall: {
-    fontWeight: '500',
     fontSize: 10,
     fontFamily: 'Raleway-Regular',
     fontVariant: ['lining-nums'],
