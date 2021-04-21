@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import colors from '../resorces/colors';
-import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   onPress: () => void;
   buttonText: string;
   Style?: any;
+  textColor: string;
+  textStyle: any;
 }
 
 interface State {
@@ -33,7 +34,7 @@ export class FilledButton extends React.Component<Props, State> {
         underlayColor={colors.AccentLight}
         onHideUnderlay={() => this.setPressed(false)}
         onShowUnderlay={() => this.setPressed(true)}>
-        <Text style={[textStyles.bodyBold, styles.buttonText]}>
+        <Text style={[this.props.textStyle, {color: this.props.textColor}]}>
           {this.props.buttonText}
         </Text>
       </TouchableHighlight>
@@ -50,9 +51,5 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     backgroundColor: colors.Accent,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
   },
 });

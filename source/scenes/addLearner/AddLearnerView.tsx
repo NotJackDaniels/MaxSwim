@@ -254,6 +254,8 @@ export default class AddLearnerScreenView
             onPress={() => console.log('clicked!')}
             buttonText={strings.addLearner.createContact}
             Style={styles.filledButton}
+            textColor={colors.Base1}
+            textStyle={textStyles.bodyBold}
           />
         </View>
       </ScrollView>

@@ -10,6 +10,10 @@ import AddLearnerView from '../scenes/addLearner/AddLearnerView';
 import strings from '../resorces/strings';
 import {StudentCard} from '../scenes/card/CardView';
 import CardPresenter from '../scenes/card/CardPresenter';
+import PhoneScreenPresenter from '../scenes/authorization/PhoneScreenPresenter';
+import PhoneScreenView from '../scenes/authorization/PhoneScreen';
+import CodeScreenPresenter from '../scenes/authorization/CodeScreenPresenter';
+import CodeScreenView from '../scenes/authorization/CodeScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +28,14 @@ export default class MainNavigator extends React.Component {
   private createHomeScreen = (): React.ReactNode => {
     let presenter = new HomeScreenPresenter(this.dependencies);
     return <HomeScreenView presenter={presenter} />;
+  };
+  private createPhoneAuthorizationScreen = (props: any): React.ReactNode => {
+    let presenter = new PhoneScreenPresenter(this.dependencies);
+    return <PhoneScreenView presenter={presenter} {...props} />;
+  };
+  private createCodeScreen = (props: any): React.ReactNode => {
+    let presenter = new CodeScreenPresenter(this.dependencies);
+    return <CodeScreenView presenter={presenter} {...props} />;
   };
 
   private createCard = (): React.ReactNode => {
@@ -44,6 +56,22 @@ export default class MainNavigator extends React.Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name={screens.phoneAuthorization}
+            options={{
+              title: strings.phoneAuthorization.screenTitle,
+              headerShown: false,
+            }}>
+            {(props) => this.createPhoneAuthorizationScreen(props)}
+          </Stack.Screen>
+          <Stack.Screen
+            name={screens.code}
+            options={{
+              title: strings.phoneAuthorization.screenTitle,
+              headerShown: false,
+            }}>
+            {(props) => this.createCodeScreen(props)}
+          </Stack.Screen>
+          <Stack.Screen
             name={screens.addLearner}
             options={{
               title: strings.addLearner.screenTitle,
@@ -52,7 +80,7 @@ export default class MainNavigator extends React.Component {
                 shadowOpacity: 0,
               },
             }}>
-            {this.createCard}
+            {this.createAddLearner}
           </Stack.Screen>
           <Stack.Screen
             name={screens.home}

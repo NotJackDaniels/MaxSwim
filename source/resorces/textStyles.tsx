@@ -1,13 +1,16 @@
 import {StyleSheet} from 'react-native';
 
 export const textStyles = StyleSheet.create({
+  title1: {
+    fontFamily: 'Raleway-Bold',
+    fontSize: 40,
+    lineHeight: 48,
+  },
   title2: {
-    fontWeight: '700',
     fontSize: 24,
     fontFamily: 'Raleway-Bold',
   },
   title3: {
-    fontWeight: '700',
     fontSize: 20,
     fontFamily: 'Raleway-Bold',
   },
@@ -18,7 +21,6 @@ export const textStyles = StyleSheet.create({
     lineHeight: 20,
   },
   bodyBold: {
-    fontWeight: '700',
     fontSize: 16,
     fontFamily: 'Raleway-Bold',
     fontVariant: ['lining-nums'],
@@ -29,7 +31,6 @@ export const textStyles = StyleSheet.create({
     fontVariant: ['lining-nums'],
   },
   footNoteBold: {
-    fontWeight: '700',
     fontSize: 12,
     fontFamily: 'Raleway-Bold',
     fontVariant: ['lining-nums'],

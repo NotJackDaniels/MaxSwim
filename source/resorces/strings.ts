@@ -38,6 +38,15 @@ const strings = {
     name: 'Иванов Иван Иванович',
     lessons: 'Занятий',
   },
+  phoneAuthorization: {
+    screenTitle: 'Авторизация',
+    logo: 'maxSwim',
+    phonePlaceholder: 'Номер телефона',
+    login: 'Войти',
+    code: 'Введите код из СМС',
+    codePlaceholder: 'Код',
+    sendCodeAgain: 'Отправить еще раз',
+  },
 };
 
 export default strings;
