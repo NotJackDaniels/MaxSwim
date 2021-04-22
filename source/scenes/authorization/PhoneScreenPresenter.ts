@@ -1,7 +1,10 @@
 import Dependencies from '../../services/Dependencies';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import {NavigatorParamList} from '../../resorces/NavigatorParamList';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export interface PhoneScreenViewInterface {
-  navigateToCodeScreen(): void;
+
 }
 
 export default class PhoneScreenPresenter {
@@ -12,7 +15,14 @@ export default class PhoneScreenPresenter {
     this.dependencies = dependencies;
   }
 
-  didPressLoginButton = () => {
-    this.view?.navigateToCodeScreen();
+   async didPressLoginButton(phone:string, navigation: StackNavigationProp<NavigatorParamList, 'login'>) {
+    try{
+      const confirmation = await auth().signInWithPhoneNumber(phone);
+      console.warn(phone);
+      navigation.navigate('code', {confirmation: confirmation})
+      
+    }catch(e) {
+      console.warn(JSON.stringify(e));
+    }
   };
 }

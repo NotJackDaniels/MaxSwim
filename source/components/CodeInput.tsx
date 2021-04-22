@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 import colors from '../resorces/colors';
+import { textStyles } from '../resorces/textStyles';
 
 interface Props {
   placeholder: string;
@@ -8,6 +9,7 @@ interface Props {
   numberOfLines?: number;
   onChangeHandle: (value: string) => void;
   marginBottom?: number;
+  borderColor:string,
 }
 
 interface State {
@@ -32,7 +34,7 @@ export class CodeInput extends React.Component<Props, State> {
           textAlign={'center'}
           onChangeText={(value) => this.props.onChangeHandle(value)}
           keyboardType={'number-pad'}
-          style={[styles.textInput]}
+          style={[styles.textInput,textStyles.title1, {borderColor: this.props.borderColor}]}
           numberOfLines={this.props.numberOfLines}
         />
       </>
@@ -43,13 +45,12 @@ export class CodeInput extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   textInput: {
     marginTop: 8,
-    padding: 8,
     borderRadius: 8,
     height: 64,
     fontSize: 40,
-    borderColor: colors.Accent,
     borderWidth: 1,
     fontFamily: 'Raleway-Bold',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

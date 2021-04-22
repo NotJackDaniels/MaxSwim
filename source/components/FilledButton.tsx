@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import colors from '../resorces/colors';
 
 interface Props {
-  onPress: () => void;
+  onPress: () => (void | Promise<void>);
   buttonText: string;
   Style?: any;
   textColor: string;
@@ -29,7 +29,7 @@ export class FilledButton extends React.Component<Props, State> {
   render() {
     return (
       <TouchableHighlight
-        onPress={() => this.props.onPress()}
+        onPress={this.props.onPress}
         style={[styles.button, this.props.Style]}
         underlayColor={colors.AccentLight}
         onHideUnderlay={() => this.setPressed(false)}

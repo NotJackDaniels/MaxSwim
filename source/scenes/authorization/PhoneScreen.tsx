@@ -11,6 +11,7 @@ import {Input} from '../../components/Input';
 import {FilledButton} from '../../components/FilledButton';
 import {NavigatorParamList} from '../../resorces/NavigatorParamList';
 import {StackNavigationProp} from '@react-navigation/stack';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 interface Props {
   presenter: PhoneScreenPresenter;
@@ -41,10 +42,6 @@ export default class PhoneScreenView
     return false;
   };
 
-  navigateToCodeScreen() {
-    this.props.navigation.navigate('code');
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -67,7 +64,7 @@ export default class PhoneScreenView
             keyboardType={'numeric'}
           />
           <FilledButton
-            onPress={this.presenter.didPressLoginButton}
+            onPress={() => this.presenter.didPressLoginButton(this.state.phone, this.props.navigation)}
             buttonText={strings.phoneAuthorization.login}
             Style={styles.filledButton}
             textColor={colors.Base1}

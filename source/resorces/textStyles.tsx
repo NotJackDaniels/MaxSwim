@@ -5,14 +5,17 @@ export const textStyles = StyleSheet.create({
     fontFamily: 'Raleway-Bold',
     fontSize: 40,
     lineHeight: 48,
+    fontVariant: ['lining-nums'],
   },
   title2: {
     fontSize: 24,
     fontFamily: 'Raleway-Bold',
+    fontVariant: ['lining-nums'],
   },
   title3: {
     fontSize: 20,
     fontFamily: 'Raleway-Bold',
+    fontVariant: ['lining-nums'],
   },
   body: {
     fontSize: 16,

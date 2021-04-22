@@ -10,14 +10,17 @@ import {textStyles} from '../../resorces/textStyles';
 import strings from '../../resorces/strings';
 import {CodeInput} from '../../components/CodeInput';
 import {FilledButton} from '../../components/FilledButton';
+import { RouteProp } from '@react-navigation/native';
 
 interface Props {
   presenter: CodeScreenPresenter;
   navigation: StackNavigationProp<NavigatorParamList, 'code'>;
+  route: RouteProp<NavigatorParamList, 'code'>
 }
 
 interface State {
   code: string;
+  borderColor: string;
 }
 
 export default class CodeScreenView
@@ -30,12 +33,22 @@ export default class CodeScreenView
     this.presenter.view = this;
     this.state = {
       code: '',
+      borderColor: colors.Accent,
     };
+  }
+
+  componentDidMount(){
+    this.presenter.didMount(this.props.route.params?.confirmation)
   }
 
   setCode = (code: string) => {
     this.setState({code: code});
   };
+
+  setBorderColor = (color: string) => {
+    this.setState({borderColor: color})
+  }
+
 
   hasErrors = (): boolean => {
     return false;
@@ -50,8 +63,9 @@ export default class CodeScreenView
           <CodeInput
             placeholder={strings.phoneAuthorization.codePlaceholder}
             value={this.state.code}
-            onChangeHandle={(value: string) => this.setCode(value)}
+            onChangeHandle={(value: string) => this.presenter.setCode(value,this.props.navigation)}
             marginBottom={0}
+            borderColor={this.state.borderColor}
           />
           <FilledButton
             onPress={() => console.log('clicked!')}

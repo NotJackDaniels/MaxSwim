@@ -4,7 +4,7 @@ import Ripple from 'react-native-material-ripple';
 import colors from '../resorces/colors';
 
 interface Props {
-  onPress: () => void;
+  onPress: () => (void | Promise<void>);
   buttonText: string;
   Style?: any;
   textColor: string;
