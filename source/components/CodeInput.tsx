@@ -53,5 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-Bold',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 8,
+    lineHeight: 48,
   },
 });

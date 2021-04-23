@@ -24,6 +24,7 @@ export default class CodeScreenPresenter{
 
   didMount(conf: Promise<FirebaseAuthTypes.ConfirmationResult>){
     this.confirmation = conf;
+    console.warn(this.confirmation);
   }
 
   async didPressSendAgainButton(phone: string) {
@@ -45,12 +46,14 @@ export default class CodeScreenPresenter{
   private async confirmCode(code: string, navigation: StackNavigationProp<NavigatorParamList, 'code'>){
     if (code.length === 6)
     {
-      const checked = await this.dependencies.authService.getConfirmation(code);
-      if (checked)
+      if(this.confirmation)
       {
-        navigation.navigate('home');
+        const checked = await this.dependencies.authService.checkCode(code, this.confirmation);
+        if (checked)
+        {
+          navigation.navigate('home');
+        }
       }
-
     }
     if(code.length === 6){
       this.view?.setBorderColor(colors.Error)

@@ -7,9 +7,9 @@ import colors from "../../resorces/colors";
 export default class AuthService implements AuthServiceInterface {
 
     getConfirmation = async(phone: string) => {
-        auth().settings.appVerificationDisabledForTesting = true;
         try{
             const confirmation = await auth().signInWithPhoneNumber(phone);
+            console.warn(confirmation)
             return confirmation;
             
           }catch(e) {
@@ -21,6 +21,7 @@ export default class AuthService implements AuthServiceInterface {
     checkCode = async(code: string, confirmation: FirebaseAuthTypes.ConfirmationResult) => {
         try{
             const response = await confirmation?.confirm(code);
+            console.warn(response)
             return response;
         } catch(e) {
             console.warn(JSON.stringify(e));
