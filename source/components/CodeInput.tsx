@@ -36,6 +36,7 @@ export class CodeInput extends React.Component<Props, State> {
           keyboardType={'number-pad'}
           style={[styles.textInput,textStyles.title1, {borderColor: this.props.borderColor}]}
           numberOfLines={this.props.numberOfLines}
+          maxLength={6}
         />
       </>
     );
