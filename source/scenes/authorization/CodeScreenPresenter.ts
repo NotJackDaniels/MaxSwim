@@ -28,8 +28,8 @@ export default class CodeScreenPresenter{
   }
 
   async didPressSendAgainButton(phone: string) {
-    const confirmation = this.dependencies.authService.getConfirmation(phone);
-    if (confirmation){
+    this.confirmation = this.dependencies.authService.getConfirmation(phone);
+    if (this.confirmation){
       showMessage({
         message: strings.flashMessages.sendCodeAgain,
         color: colors.Base1,
