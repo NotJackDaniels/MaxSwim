@@ -16,13 +16,9 @@ export default class PhoneScreenPresenter {
   }
 
    async didPressLoginButton(phone:string, navigation: StackNavigationProp<NavigatorParamList, 'login'>) {
-    try{
-      const confirmation = await auth().signInWithPhoneNumber(phone);
-      console.warn(phone);
-      navigation.navigate('code', {confirmation: confirmation})
-      
-    }catch(e) {
-      console.warn(JSON.stringify(e));
+    const confirmation = await this.dependencies.authService.getConfirmation(phone);
+    if(confirmation){
+      navigation.navigate('code', {confirmation: confirmation, phone: phone})
     }
   };
 }

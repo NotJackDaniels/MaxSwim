@@ -11,6 +11,7 @@ import strings from '../../resorces/strings';
 import {CodeInput} from '../../components/CodeInput';
 import {FilledButton} from '../../components/FilledButton';
 import { RouteProp } from '@react-navigation/native';
+import FlashMessage from "react-native-flash-message";
 
 interface Props {
   presenter: CodeScreenPresenter;
@@ -38,7 +39,7 @@ export default class CodeScreenView
   }
 
   componentDidMount(){
-    this.presenter.didMount(this.props.route.params?.confirmation)
+     this.presenter.didMount(this.props.route.params?.confirmation)
   }
 
   setCode = (code: string) => {
@@ -49,17 +50,13 @@ export default class CodeScreenView
     this.setState({borderColor: color})
   }
 
-
-  hasErrors = (): boolean => {
-    return false;
-  };
   render() {
     return (
       <View style={styles.container}>
+        <Text style={[textStyles.title3, styles.selfAlign]}>
+          {strings.phoneAuthorization.code}
+        </Text>
         <View style={styles.content}>
-          <Text style={textStyles.title3}>
-            {strings.phoneAuthorization.code}
-          </Text>
           <CodeInput
             placeholder={strings.phoneAuthorization.codePlaceholder}
             value={this.state.code}
@@ -68,13 +65,14 @@ export default class CodeScreenView
             borderColor={this.state.borderColor}
           />
           <FilledButton
-            onPress={() => console.log('clicked!')}
+            onPress={() =>  this.props.presenter.didPressSendAgainButton(this.props.route.params.phone)}
             buttonText={strings.phoneAuthorization.sendCodeAgain}
             Style={styles.filledButton}
             textColor={colors.Accent}
             textStyle={textStyles.body}
           />
         </View>
+        <FlashMessage ref="myLocalFlashMessage" />
       </View>
     );
   }
@@ -92,10 +90,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 216,
     paddingHorizontal: 16,
+    textAlign: 'center',
   },
   filledButton: {
     width: '100%',
     backgroundColor: colors.Base1,
     marginTop: 0,
   },
+  selfAlign: {
+    alignSelf: 'center',
+  }
 });

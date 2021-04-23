@@ -5,6 +5,8 @@ import { cond } from 'react-native-reanimated';
 import colors from '../../resorces/colors';
 import {NavigatorParamList} from '../../resorces/NavigatorParamList';
 import {StackNavigationProp} from '@react-navigation/stack';
+import { showMessage, hideMessage } from "react-native-flash-message";
+import strings from '../../resorces/strings';
 
 export interface CodeScreenViewInterface {
   setCode: (code:string) => void;
@@ -14,14 +16,25 @@ export interface CodeScreenViewInterface {
 export default class CodeScreenPresenter{
   view?: CodeScreenViewInterface;
   private dependencies: Dependencies;
-  private confirmation: FirebaseAuthTypes.ConfirmationResult | undefined = undefined;
+  private confirmation: Promise<FirebaseAuthTypes.ConfirmationResult>| undefined = undefined;
 
   constructor(dependencies: Dependencies) {
     this.dependencies = dependencies;
   }
 
-  didMount(conf: FirebaseAuthTypes.ConfirmationResult){
+  didMount(conf: Promise<FirebaseAuthTypes.ConfirmationResult>){
     this.confirmation = conf;
+  }
+
+  async didPressSendAgainButton(phone: string) {
+    const confirmation = this.dependencies.authService.getConfirmation(phone);
+    if (confirmation){
+      showMessage({
+        message: strings.flashMessages.sendCodeAgain,
+        color: colors.Base1,
+        backgroundColor: colors.Accent
+      });
+    }
   }
 
   setCode = (code: string, navigation: StackNavigationProp<NavigatorParamList, 'code'>) => {
@@ -30,18 +43,14 @@ export default class CodeScreenPresenter{
   }
 
   private async confirmCode(code: string, navigation: StackNavigationProp<NavigatorParamList, 'code'>){
-    try{
-      if(code.length === 6)
+    if (code.length === 6)
+    {
+      const checked = await this.dependencies.authService.getConfirmation(code);
+      if (checked)
       {
-        const response = await this.confirmation?.confirm(code);
-        if (response){
-          console.warn('1')
-          navigation.navigate('home');
-        }
+        navigation.navigate('home');
       }
-      
-    } catch(e) {
-      console.warn(JSON.stringify(e));
+
     }
     if(code.length === 6){
       this.view?.setBorderColor(colors.Error)

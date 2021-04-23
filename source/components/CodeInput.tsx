@@ -44,7 +44,7 @@ export class CodeInput extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   textInput: {
-    marginTop: 8,
+    marginTop: 16,
     borderRadius: 8,
     height: 64,
     fontSize: 40,

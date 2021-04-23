@@ -38,9 +38,6 @@ export default class PhoneScreenView
   setPhone = (phone: string) => {
     this.setState({phone: phone});
   };
-  hasErrors = (): boolean => {
-    return false;
-  };
 
   render() {
     return (
@@ -60,7 +57,7 @@ export default class PhoneScreenView
             onChangeHandle={(value: string) => this.setPhone(value)}
             marginBottom={0}
             errorType={'empty'}
-            hasErrors={this.hasErrors}
+            hasErrors={() => false}
             keyboardType={'numeric'}
           />
           <FilledButton
