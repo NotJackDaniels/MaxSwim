@@ -88,6 +88,8 @@ const styles = StyleSheet.create({
   textInput: {
     textAlignVertical: 'top',
     padding: 16,
+    fontFamily: 'Raleway-Regular',
+    fontVariant: ['lining-nums'],
   },
   helperStyle: {
     marginTop: -8,

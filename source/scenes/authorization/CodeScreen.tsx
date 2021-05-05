@@ -10,18 +10,19 @@ import {textStyles} from '../../resorces/textStyles';
 import strings from '../../resorces/strings';
 import {CodeInput} from '../../components/CodeInput';
 import {FilledButton} from '../../components/FilledButton';
-import { RouteProp } from '@react-navigation/native';
-import FlashMessage from "react-native-flash-message";
+import {RouteProp} from '@react-navigation/native';
+import {showMessage} from 'react-native-flash-message';
 
 interface Props {
   presenter: CodeScreenPresenter;
   navigation: StackNavigationProp<NavigatorParamList, 'code'>;
-  route: RouteProp<NavigatorParamList, 'code'>
+  route: RouteProp<NavigatorParamList, 'code'>;
 }
 
 interface State {
   code: string;
   borderColor: string;
+  message: string;
 }
 
 export default class CodeScreenView
@@ -34,21 +35,32 @@ export default class CodeScreenView
     this.presenter.view = this;
     this.state = {
       code: '',
+      message: '',
       borderColor: colors.Accent,
     };
   }
 
-  componentDidMount(){
-     this.presenter.didMount(this.props.route.params?.confirmation)
+  componentDidMount() {
+    this.presenter.didMount(this.props.route.params?.confirmation);
   }
+
+  ShowMessage = (message: string, color: string, bgColor: string) => {
+    this.setState({message: message});
+    console.warn(message);
+    showMessage({
+      message: this.state.message.toString(),
+      color: color,
+      backgroundColor: bgColor,
+    });
+  };
 
   setCode = (code: string) => {
     this.setState({code: code});
   };
 
   setBorderColor = (color: string) => {
-    this.setState({borderColor: color})
-  }
+    this.setState({borderColor: color});
+  };
 
   render() {
     return (
@@ -60,19 +72,24 @@ export default class CodeScreenView
           <CodeInput
             placeholder={strings.phoneAuthorization.codePlaceholder}
             value={this.state.code}
-            onChangeHandle={(value: string) => this.presenter.setCode(value,this.props.navigation)}
+            onChangeHandle={(value: string) =>
+              this.presenter.setCode(value, this.props.navigation)
+            }
             marginBottom={0}
             borderColor={this.state.borderColor}
           />
           <FilledButton
-            onPress={() =>  this.props.presenter.didPressSendAgainButton(this.props.route.params.phone)}
+            onPress={() =>
+              this.props.presenter.didPressSendAgainButton(
+                this.props.route.params.phone,
+              )
+            }
             buttonText={strings.phoneAuthorization.sendCodeAgain}
             Style={styles.filledButton}
             textColor={colors.Accent}
             textStyle={textStyles.body}
           />
         </View>
-        <FlashMessage ref="myLocalFlashMessage" />
       </View>
     );
   }
@@ -89,7 +106,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     justifyContent: 'center',
     width: 216,
-    paddingHorizontal: 16,
     textAlign: 'center',
   },
   filledButton: {
@@ -99,5 +115,5 @@ const styles = StyleSheet.create({
   },
   selfAlign: {
     alignSelf: 'center',
-  }
+  },
 });

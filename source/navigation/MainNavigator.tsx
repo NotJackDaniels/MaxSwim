@@ -14,6 +14,7 @@ import PhoneScreenPresenter from '../scenes/authorization/PhoneScreenPresenter';
 import PhoneScreenView from '../scenes/authorization/PhoneScreen';
 import CodeScreenPresenter from '../scenes/authorization/CodeScreenPresenter';
 import CodeScreenView from '../scenes/authorization/CodeScreen';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createStackNavigator();
 
@@ -88,6 +89,7 @@ export default class MainNavigator extends React.Component {
             {this.createHomeScreen}
           </Stack.Screen>
         </Stack.Navigator>
+        <FlashMessage />
       </NavigationContainer>
     );
   }

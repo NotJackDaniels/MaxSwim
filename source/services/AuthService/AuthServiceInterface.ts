@@ -1,5 +1,11 @@
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 export default interface AuthServiceInterface {
-    getConfirmation: (phone: string) => Promise<any>;
-    checkCode: (code: string, confirmation: any) => Promise<any>;
+  getConfirmation: (
+    phone: string,
+    setError: (error: string) => void,
+  ) => Promise<any>;
+  checkCode: (
+    code: string,
+    confirmation: any,
+    setError: (error: string) => void,
+  ) => Promise<any>;
 }

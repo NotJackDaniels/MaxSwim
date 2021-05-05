@@ -1,35 +1,29 @@
-import AuthServiceInterface from "./AuthServiceInterface";
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { showMessage, hideMessage } from "react-native-flash-message";
-import strings from "../../resorces/strings";
-import colors from "../../resorces/colors";
+import AuthServiceInterface from './AuthServiceInterface';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export default class AuthService implements AuthServiceInterface {
-
-    getConfirmation = async(phone: string) => {
-        try{
-            const confirmation = await auth().signInWithPhoneNumber(phone);
-            return confirmation;
-            
-          }catch(e) {
-            console.warn(JSON.stringify(e));
-            return undefined;
-          }
+  getConfirmation = async (
+    phone: string,
+    setError: (error: string) => void,
+  ) => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phone);
+      return confirmation;
+    } catch (e) {
+      setError(e);
     }
+  };
 
-    checkCode = async(code: string, confirmation: FirebaseAuthTypes.ConfirmationResult) => {
-        try{
-            const response = await confirmation?.confirm(code);
-            return response;
-        } catch(e) {
-            console.warn(JSON.stringify(e));
-            showMessage({
-              message: strings.flashMessages.wrongCode,
-              color: colors.Base1,
-              backgroundColor: colors.Error
-            });
-            return null;
-        }
-
+  checkCode = async (
+    code: string,
+    confirmation: FirebaseAuthTypes.ConfirmationResult,
+    setError: (error: string) => void,
+  ) => {
+    try {
+      const response = await confirmation?.confirm(code);
+      return response;
+    } catch (e) {
+      setError(e);
     }
+  };
 }

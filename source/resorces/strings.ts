@@ -40,7 +40,7 @@ const strings = {
   },
   phoneAuthorization: {
     screenTitle: 'Авторизация',
-    logo: 'maxSwim',
+    logo: 'MaxSwim',
     phonePlaceholder: 'Номер телефона',
     login: 'Войти',
     code: 'Введите код из СМС',

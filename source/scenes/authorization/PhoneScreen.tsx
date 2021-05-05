@@ -11,7 +11,7 @@ import {Input} from '../../components/Input';
 import {FilledButton} from '../../components/FilledButton';
 import {NavigatorParamList} from '../../resorces/NavigatorParamList';
 import {StackNavigationProp} from '@react-navigation/stack';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 
 interface Props {
   presenter: PhoneScreenPresenter;
@@ -20,6 +20,7 @@ interface Props {
 
 interface State {
   phone: string;
+  message: any;
 }
 
 export default class PhoneScreenView
@@ -32,8 +33,18 @@ export default class PhoneScreenView
     this.presenter.view = this;
     this.state = {
       phone: '',
+      message: '',
     };
   }
+
+  ShowMessage = (message: string, color: string, bgColor: string) => {
+    this.setState({message: message});
+    showMessage({
+      message: message.toString(),
+      color: color,
+      backgroundColor: bgColor,
+    });
+  };
 
   setPhone = (phone: string) => {
     this.setState({phone: phone});
@@ -61,7 +72,12 @@ export default class PhoneScreenView
             keyboardType={'numeric'}
           />
           <FilledButton
-            onPress={() => this.presenter.didPressLoginButton(this.state.phone, this.props.navigation)}
+            onPress={() =>
+              this.presenter.didPressLoginButton(
+                this.state.phone,
+                this.props.navigation,
+              )
+            }
             buttonText={strings.phoneAuthorization.login}
             Style={styles.filledButton}
             textColor={colors.Base1}

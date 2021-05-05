@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 import colors from '../resorces/colors';
-import { textStyles } from '../resorces/textStyles';
+import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   placeholder: string;
@@ -9,7 +9,7 @@ interface Props {
   numberOfLines?: number;
   onChangeHandle: (value: string) => void;
   marginBottom?: number;
-  borderColor:string,
+  borderColor: string;
 }
 
 interface State {
@@ -34,7 +34,11 @@ export class CodeInput extends React.Component<Props, State> {
           textAlign={'center'}
           onChangeText={(value) => this.props.onChangeHandle(value)}
           keyboardType={'number-pad'}
-          style={[styles.textInput,textStyles.title1, {borderColor: this.props.borderColor}]}
+          style={[
+            styles.textInput,
+            textStyles.title1,
+            {borderColor: this.props.borderColor},
+          ]}
           numberOfLines={this.props.numberOfLines}
           maxLength={6}
         />
@@ -49,11 +53,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 64,
     fontSize: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     fontFamily: 'Raleway-Bold',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 8,
     lineHeight: 48,
+    fontVariant: ['lining-nums'],
   },
 });
