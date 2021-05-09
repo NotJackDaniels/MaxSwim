@@ -68,7 +68,6 @@ export default class AddLearnerScreenView
       dateColor: colors.Shade2,
     };
   }
-  selectValue = () => {};
 
   setToggleCheckBox = (newValue: boolean) => {
     this.setState({toggleCheckBox: newValue});
@@ -221,7 +220,13 @@ export default class AddLearnerScreenView
           />
           <ToggleButton
             style={styles.toggleButton}
-            onPress={this.selectValue}
+            onPress={() =>
+              this.presenter.AddPhone(
+                this.state.contactName,
+                this.state.number,
+                this.state.toggleCheckBox,
+              )
+            }
             buttonText={strings.addLearner.addNumber}
           />
         </View>

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import colors from '../resorces/colors';
 
 interface Props {
-  onPress: () => (void | Promise<void>);
+  onPress: () => void | Promise<void>;
   buttonText: string;
   Style?: any;
   textColor: string;
