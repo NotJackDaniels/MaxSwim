@@ -9,6 +9,7 @@ interface Props {
   telephone: string;
   name: string;
   isMain: boolean;
+  onPress: (telephone: any) => void;
 }
 
 export class TelephoneInfo extends React.Component<Props> {
@@ -31,7 +32,9 @@ export class TelephoneInfo extends React.Component<Props> {
           </View>
           <Text style={textStyles.body}>{this.props.telephone}</Text>
         </View>
-        <TouchableOpacity style={styles.deleteButton}>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={this.props.onPress}>
           <DeleteIcon height={12} width={12} />
         </TouchableOpacity>
       </View>

@@ -11,10 +11,12 @@ var firebaseConfig = {
   appId: '1:933497191677:web:e6ea0091c58594fb185294',
 };
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore(app);
-
-export const UsersRef = db.collection('Users');
+if (!firebase.apps.length) {
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore(app);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
 
 export {firebase};

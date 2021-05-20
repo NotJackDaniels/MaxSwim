@@ -21,11 +21,11 @@ export class ToggleButton extends React.Component<Props, State> {
       borderColor: colors.Shade2,
     };
   }
-  pressed = (onPress: () => void) => {};
+
   render() {
     return (
       <TouchableOpacity
-        onPress={() => this.pressed(this.props.onPress)}
+        onPress={this.props.onPress}
         style={[
           styles.button,
           this.props.style,

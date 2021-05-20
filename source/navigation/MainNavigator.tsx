@@ -57,6 +57,17 @@ export default class MainNavigator extends React.Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name={screens.addLearner}
+            options={{
+              title: strings.addLearner.screenTitle,
+              headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+              },
+            }}>
+            {this.createAddLearner}
+          </Stack.Screen>
+          <Stack.Screen
             name={screens.phoneAuthorization}
             options={{
               title: strings.phoneAuthorization.screenTitle,
@@ -71,17 +82,6 @@ export default class MainNavigator extends React.Component {
               headerShown: false,
             }}>
             {(props) => this.createCodeScreen(props)}
-          </Stack.Screen>
-          <Stack.Screen
-            name={screens.addLearner}
-            options={{
-              title: strings.addLearner.screenTitle,
-              headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-              },
-            }}>
-            {this.createAddLearner}
           </Stack.Screen>
           <Stack.Screen
             name={screens.home}

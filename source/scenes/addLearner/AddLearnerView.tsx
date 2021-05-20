@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import AddLearnerScreenPresenter, {
   AddLearnerScreenViewInterface,
@@ -27,24 +28,44 @@ interface Props {
   presenter: AddLearnerScreenPresenter;
 }
 
-interface State {
-  toggleCheckBox: boolean;
+interface Telephone {
+  name: string;
+  number: string;
+  isMain: boolean;
+}
+
+interface user {
   surname: string;
   name: string;
   date: number;
   note: string;
   patronymic: string;
-  contactName: string;
-  number: string;
   lessons: number;
+  telephones: Array<Telephone>;
+}
+
+interface State {
+  toggleCheckBox: boolean;
+  number: string;
   inputLessons: string;
   isVisible: boolean;
   showDate: String;
   dateColor: string;
+  contactName: string;
+  surname: string;
+  name: string;
+  date: number;
+  note: string;
+  patronymic: string;
+  lessons: number;
+  telephones: Array<Telephone>;
+  user: user | null;
+  telephone: Telephone | null;
+  image: any;
 }
 
 export default class AddLearnerScreenView
-  extends React.Component<Props, State>
+  extends React.Component<Props, State, Telephone>
   implements AddLearnerScreenViewInterface {
   private readonly presenter: AddLearnerScreenPresenter;
 
@@ -59,13 +80,17 @@ export default class AddLearnerScreenView
       date: 0,
       note: '',
       patronymic: '',
-      contactName: '',
-      number: '',
+      telephones: [],
       lessons: -1,
       isVisible: false,
       showDate: strings.addLearner.date,
       inputLessons: '',
       dateColor: colors.Shade2,
+      contactName: '',
+      number: '',
+      user: null,
+      telephone: null,
+      image: null,
     };
   }
 
@@ -92,6 +117,54 @@ export default class AddLearnerScreenView
     });
   };
 
+  addTelephone = async () => {
+    await this.setState({
+      telephone: {
+        name: this.state.contactName,
+        number: this.state.number,
+        isMain: this.state.toggleCheckBox,
+      },
+    });
+    if (this.state.telephone) {
+      this.setState({
+        telephones: this.state.telephones.concat([this.state.telephone]),
+      });
+    }
+    console.warn(this.state.telephone);
+  };
+
+  removeTelephone = (telephone: any) => {
+    let altTelephones = this.state.telephones.filter(function (e: any) {
+      return e.id !== telephone.id;
+    });
+    this.setState({telephones: altTelephones});
+  };
+
+  addUser = () => {
+    this.setState({
+      user: {
+        name: this.state.name,
+        surname: this.state.surname,
+        date: this.state.date,
+        note: this.state.note,
+        patronymic: this.state.patronymic,
+        lessons: this.state.lessons,
+        telephones: this.state.telephones,
+      },
+    });
+    console.warn(this.state.user);
+    if (this.state.user) {
+      this.presenter.AddUser(this.state.user);
+    }
+    if (this.state.image) {
+      this.presenter.addImage(this.state.image);
+    }
+  };
+
+  setImage = (image: any) => {
+    this.setState({image: image});
+  };
+
   onChangeHandle = (value: number) => {
     this.setState({lessons: value});
     this.setState({inputLessons: ''});
@@ -116,14 +189,30 @@ export default class AddLearnerScreenView
     return false;
   };
 
+  renderItem({item}: {item: Telephone}) {
+    return (
+      <>
+        <TelephoneInfo
+          name={item.name}
+          telephone={item.number}
+          isMain={item.isMain}
+          onPress={() => this.removeTelephone(item)}
+        />
+        <View style={styles.separator} />
+      </>
+    );
+  }
+
   render() {
     return (
       <ScrollView
         style={styles.mainContainer}
         showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
-          <Image source={{}} style={styles.image} />
-          <TouchableOpacity style={styles.imageOverlap} onPress={() => {}}>
+          <Image source={{uri: this.state.image}} style={styles.image} />
+          <TouchableOpacity
+            style={styles.imageOverlap}
+            onPress={this.presenter.imageGalleryLaunch}>
             <View style={styles.imageBg}>
               <CameraIcon height={24} width={24} />
             </View>
@@ -143,7 +232,10 @@ export default class AddLearnerScreenView
           <Input
             placeholder={strings.addLearner.name}
             value={this.state.name}
-            onChangeHandle={(value: string) => this.setState({name: value})}
+            onChangeHandle={(value: string) => {
+              this.setState({name: value});
+              console.warn(this.state.name);
+            }}
             errorType={'no'}
             hasErrors={this.hasErrors}
           />
@@ -187,13 +279,16 @@ export default class AddLearnerScreenView
           <Text style={[styles.formHeading, textStyles.title2]}>
             {strings.addLearner.telephones}
           </Text>
-          <TelephoneInfo
-            name={strings.addLearner.telephoneExampleName}
-            telephone={strings.addLearner.telephoneExampleNumber}
-            isMain={true}
-          />
+          {this.state.telephones ? (
+            <View>
+              <FlatList
+                data={this.state.telephones}
+                renderItem={(item) => this.renderItem(item)}
+                keyExtractor={(item, index) => `item-${index}`}
+              />
+            </View>
+          ) : null}
         </View>
-        <View style={styles.separator} />
         <View style={styles.container}>
           <Input
             placeholder={strings.addLearner.contactName}
@@ -210,6 +305,7 @@ export default class AddLearnerScreenView
             onChangeHandle={(value: string) => this.setState({number: value})}
             errorType={'no'}
             hasErrors={this.hasErrors}
+            keyboardType={'numeric'}
           />
         </View>
         <View style={styles.rowElements}>
@@ -220,13 +316,7 @@ export default class AddLearnerScreenView
           />
           <ToggleButton
             style={styles.toggleButton}
-            onPress={() =>
-              this.presenter.AddPhone(
-                this.state.contactName,
-                this.state.number,
-                this.state.toggleCheckBox,
-              )
-            }
+            onPress={() => this.presenter.AddPhone()}
             buttonText={strings.addLearner.addNumber}
           />
         </View>
@@ -256,7 +346,7 @@ export default class AddLearnerScreenView
         </View>
         <View style={styles.container}>
           <FilledButton
-            onPress={() => console.log('clicked!')}
+            onPress={this.addUser}
             buttonText={strings.addLearner.createContact}
             Style={styles.filledButton}
             textColor={colors.Base1}
