@@ -57,15 +57,9 @@ export default class MainNavigator extends React.Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name={screens.addLearner}
-            options={{
-              title: strings.addLearner.screenTitle,
-              headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-              },
-            }}>
-            {this.createAddLearner}
+            name={screens.home}
+            options={{title: strings.home.screenTitle}}>
+            {this.createHomeScreen}
           </Stack.Screen>
           <Stack.Screen
             name={screens.phoneAuthorization}
@@ -84,9 +78,15 @@ export default class MainNavigator extends React.Component {
             {(props) => this.createCodeScreen(props)}
           </Stack.Screen>
           <Stack.Screen
-            name={screens.home}
-            options={{title: strings.home.screenTitle}}>
-            {this.createHomeScreen}
+            name={screens.addLearner}
+            options={{
+              title: strings.addLearner.screenTitle,
+              headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+              },
+            }}>
+            {this.createAddLearner}
           </Stack.Screen>
         </Stack.Navigator>
         <FlashMessage />

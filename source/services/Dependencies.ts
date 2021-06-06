@@ -7,7 +7,10 @@ export default class Dependencies {
   readonly storageService: StorageServiceInterface;
   readonly authService: AuthServiceInterface;
 
-  constructor(storageService: StorageServiceInterface, authService: AuthServiceInterface) {
+  constructor(
+    storageService: StorageServiceInterface,
+    authService: AuthServiceInterface,
+  ) {
     this.storageService = storageService;
     this.authService = authService;
   }

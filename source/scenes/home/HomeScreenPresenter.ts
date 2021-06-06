@@ -1,8 +1,8 @@
 import Dependencies from '../../services/Dependencies';
-import strings from '../../resorces/strings';
 
 export interface HomeScreenViewInterface {
   updateCounterText(text: string): void;
+  setUsers: (users: any) => void;
 }
 
 export default class HomeScreenPresenter {
@@ -16,15 +16,12 @@ export default class HomeScreenPresenter {
   }
 
   didMount = () => {
-    this.updateCounter();
+    this.getUsers();
   };
 
-  didPressCounterButton = () => {
-    this.counter += 1;
-    this.updateCounter();
-  };
-
-  private updateCounter() {
-    this.view?.updateCounterText(strings.home.counterText + this.counter);
+  async getUsers() {
+    const users: any = [];
+    await this.dependencies.storageService.getUsers(users);
+    this.view?.setUsers(users);
   }
 }

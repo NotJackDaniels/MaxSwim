@@ -1,9 +1,15 @@
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {FlatList, Text} from 'react-native';
+import {ContactView} from '../../components/Contact';
 import HomeScreenPresenter, {
   HomeScreenViewInterface,
 } from './HomeScreenPresenter';
-import strings from '../../resorces/strings';
+
+interface user {
+  surname: string;
+  name: string;
+  lessons: number;
+}
 
 interface Props {
   presenter: HomeScreenPresenter;
@@ -11,6 +17,7 @@ interface Props {
 
 interface State {
   counterText: string;
+  users: any | null;
 }
 
 export default class HomeScreenView
@@ -26,6 +33,7 @@ export default class HomeScreenView
 
     this.state = {
       counterText: '',
+      users: null,
     };
   }
 
@@ -37,14 +45,33 @@ export default class HomeScreenView
     this.setState({counterText: text});
   }
 
+  setUsers(users: any) {
+    this.setState({users: users});
+    console.warn(users);
+  }
+
+  renderItem({item}: {item: user}) {
+    return (
+      <ContactView
+        surname={item.surname}
+        name={item.name}
+        lessons={item.lessons}
+      />
+    );
+  }
+
   render() {
     return (
       <>
-        <Text>{this.state.counterText}</Text>
-        <Button
-          title={strings.home.counterButtonTitle}
-          onPress={this.presenter.didPressCounterButton}
-        />
+        {this.state.users ? (
+          <FlatList
+            data={this.state.users}
+            renderItem={(item) => this.renderItem(item)}
+            keyExtractor={(item, index) => `item-${index}`}
+          />
+        ) : (
+          <Text>no</Text>
+        )}
       </>
     );
   }

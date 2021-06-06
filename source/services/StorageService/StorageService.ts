@@ -15,4 +15,17 @@ export default class StorageService implements StorageServiceInterface {
       console.warn(e);
     }
   };
+
+  getUsers = async (users: any) => {
+    await firebase
+      .firestore()
+      .collection('users')
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          users.push(data);
+        });
+      });
+  };
 }
