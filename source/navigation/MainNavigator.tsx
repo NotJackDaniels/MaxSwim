@@ -58,7 +58,7 @@ export default class MainNavigator extends React.Component {
         <Stack.Navigator>
           <Stack.Screen
             name={screens.home}
-            options={{title: strings.home.screenTitle}}>
+            options={{title: strings.home.screenTitle, headerShown: false}}>
             {this.createHomeScreen}
           </Stack.Screen>
           <Stack.Screen

@@ -51,6 +51,16 @@ const strings = {
     sendCodeAgain: 'СМС с кодом было отправлено на ваш номер',
     wrongCode: 'Неверный код подтверждения',
   },
+  mainScreen: {
+    search: 'Поиск',
+    groups: 'Группы',
+    allLearners: 'Все ученики',
+    learners: 'Ученики',
+    notes: 'Заметки',
+    log: 'Журнал',
+    today: 'Сегодня',
+    noUsers: 'Нет учеников',
+  },
 };
 
 export default strings;
