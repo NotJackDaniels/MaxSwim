@@ -39,8 +39,8 @@ export class BottomNavButtons extends React.Component<Props, State> {
       <TouchableOpacity
         key={item.key}
         onPress={() => this.props.setNewValue(item.key)}
-        style={[styles.button]}>
-        <item.svg height={20} width={20} color="red" />
+        style={styles.button}>
+        <item.svg height={20} width={20} />
         <Text style={[textStyles.footNoteSmall, styles.text]}>
           {item.label}
         </Text>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width / 4,
+    marginTop: 8,
   },
   text: {
     color: colors.Shade4,

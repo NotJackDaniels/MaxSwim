@@ -1,29 +1,34 @@
-import React, {Component, PureComponent} from 'react';
+import React, {createRef} from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
   Text,
   ViewPropTypes,
-  Animated,
-  Dimensions,
   TouchableWithoutFeedback,
   SectionList,
 } from 'react-native';
-
-const {width, height} = Dimensions.get('window');
-import {makePy} from './getFirstAlphabet';
 var _ = require('lodash');
+import {makePy} from './getFirstAlphabet';
 
-export default class SectionListModule extends Component {
+interface Props {
+  sectionListData: any;
+  renderItem: (...props: any) => any;
+  renderHeader: (params: any) => any;
+  letterTextStyle: any;
+}
+
+interface State {
+  dataArray: any;
+}
+
+export default class SectionListModule extends React.Component<Props, State> {
   static propTypes = {
     sectionListData: PropTypes.array.isRequired, //传入的数据
     sectionHeight: PropTypes.number, //内容的高度
     sectionHeaderHeight: PropTypes.number, //头部索引的高度
     letterViewStyle: ViewPropTypes.style, //右边字母组件样式
     sectionItemViewStyle: ViewPropTypes.style, //item组件样式
-    sectionItemTextStyle: Text.propTypes.style, //item文字样式
-    sectionHeaderTextStyle: Text.propTypes.style, //头部文字样式
     scrollAnimation: PropTypes.bool, //是否启动动画
     showAlphabet: PropTypes.bool, //是否显示右边字母
     otherAlphabet: PropTypes.string, //其他的字符串
@@ -37,7 +42,7 @@ export default class SectionListModule extends Component {
     otherAlphabet: '其他',
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     var data = [
       {data: [], key: 'А'},
@@ -99,7 +104,6 @@ export default class SectionListModule extends Component {
       {data: [], key: 'X'},
       {data: [], key: 'Y'},
       {data: [], key: 'Z'},
-      {data: [], key: this.props.otherAlphabet},
     ];
     this.state = {
       dataArray: data,
@@ -108,12 +112,12 @@ export default class SectionListModule extends Component {
 
   filterData() {
     var data = _.cloneDeep(this.state.dataArray);
-    this.props.sectionListData.map((item, index) => {
+    this.props.sectionListData.map((item: any) => {
       for (let i = 0; i < data.length; i++) {
-        if (i == data.length - 1) {
+        if (i === data.length - 1) {
           data[i].data.push(item);
           break;
-        } else if (data[i].key == makePy(item.surname.toUpperCase())) {
+        } else if (data[i].key === makePy(item.surname.toUpperCase())) {
           data[i].data.push(item);
           break;
         } else {
@@ -124,7 +128,7 @@ export default class SectionListModule extends Component {
     let delData = [];
     let letterData = [];
     for (var i in data) {
-      if (data[i].data.length != 0) {
+      if (data[i].data.length !== 0) {
         delData.push(data[i]);
         letterData.push(data[i].key);
       }
@@ -139,114 +143,59 @@ export default class SectionListModule extends Component {
     let filterData = this.filterData();
     let delData = filterData.delData;
     let letterData = filterData.letterData;
-
+    const ref = createRef<SectionList<any>>();
     return (
       <View style={styles.container}>
         <SectionList
-          {...this.props}
-          style={this.props.SectionListStyle}
-          ref={(s) => (this.sectionList = s)}
+          ref={ref}
           keyExtractor={this._keyExtractor}
           sections={delData}
           renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
-          getItemLayout={(data, index) => ({
-            length: this.props.sectionHeight,
-            offset: this.props.sectionHeight * index,
-            index,
-          })}
         />
-        {this.props.showAlphabet ? (
-          <View style={[styles.letterView, this.props.letterViewStyle]}>
-            {letterData.map((item, index) => {
-              let otherStyle = [];
-              if (index == letterData.length - 1) {
-                if (item == this.props.otherAlphabet) {
-                  otherStyle.push({width: 20});
-                }
-              }
-              return (
-                <TouchableWithoutFeedback
-                  key={'letter_' + index}
-                  onPress={() => {
-                    this.sectionList.scrollToLocation({
-                      animated: this.props.scrollAnimation,
-                      itemIndex: 0,
-                      sectionIndex: index,
-                      viewOffset:
-                        this.props.sectionHeight * (index + 1) +
-                        this.props.sectionHeaderHeight * index,
-                    });
-                  }}>
-                  <View style={[styles.letterItemView, otherStyle]}>
-                    <Text
-                      numberOfLines={0}
-                      style={[styles.letterText, this.props.letterTextStyle]}>
-                      {item}
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              );
-            })}
-          </View>
-        ) : (
-          <View></View>
-        )}
-      </View>
-    );
-  }
-
-  _renderSectionHeader = ({section}) => {
-    if (this.props.renderHeader) {
-      return this.props.renderHeader(section);
-    }
-    return (
-      <View
-        style={[
-          styles.sectionHeaderView,
-          {height: this.props.sectionHeaderHeight},
-        ]}>
-        <Text
-          style={[styles.sectionHeaderText, this.props.sectionHeaderTextStyle]}>
-          {section.key}
-        </Text>
-        <View style={styles.lineView}></View>
-      </View>
-    );
-  };
-
-  _keyExtractor = (item, index) => index;
-
-  _renderItem = ({item, index, section}) => {
-    if (this.props.renderItem) {
-      return this.props.renderItem(item, index, section);
-    }
-    return (
-      <SectionItem
-        {...this.props}
-        callback={() => {
-          this.props.SectionListClickCallback(item, index, section);
-        }}
-        item={item}></SectionItem>
-    );
-  };
-}
-
-class SectionItem extends PureComponent {
-  render() {
-    return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          this.props.callback();
-        }}>
-        <View style={[styles.itemStyle, this.props.sectionItemViewStyle]}>
-          <Text style={[styles.artistText, this.props.sectionItemTextStyle]}>
-            {this.props.item.surname}
-          </Text>
+        <View style={[styles.letterView]}>
+          {letterData.map((item, index) => {
+            return (
+              <TouchableWithoutFeedback
+                key={'letter_' + index}
+                onPress={() => {
+                  ref.current?.scrollToLocation({
+                    itemIndex: 0,
+                    sectionIndex: index,
+                  });
+                }}>
+                <View style={[styles.letterItemView]}>
+                  <Text
+                    numberOfLines={0}
+                    style={[styles.letterText, this.props.letterTextStyle]}>
+                    {item}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            );
+          })}
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     );
   }
+
+  _renderSectionHeader = ({section}: {section: any}) => {
+    return this.props.renderHeader(section);
+  };
+
+  _keyExtractor = (item: any, index: any) => index;
+
+  _renderItem = ({
+    item,
+    index,
+    section,
+  }: {
+    item: any;
+    index: any;
+    section: any;
+  }) => {
+    return this.props.renderItem(item, index, section);
+  };
 }
 
 const styles = StyleSheet.create({

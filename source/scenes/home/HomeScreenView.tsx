@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import {ContactView} from '../../components/Contact';
 import colors from '../../resorces/colors';
 import {textStyles} from '../../resorces/textStyles';
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   letters: {
+    top: Platform.OS === 'ios' ? -72 : 50,
     color: colors.Accent,
     fontSize: 11,
   },
