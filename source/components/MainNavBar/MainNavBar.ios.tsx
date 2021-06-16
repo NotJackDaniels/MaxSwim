@@ -5,6 +5,10 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import {textStyles} from '../../resorces/textStyles';
 import colors from '../../resorces/colors';
 import {SearchBar} from './SearchBar/SearchBar.ios';
+import Animated from 'react-native-reanimated';
+import AddUserBtn from '../../resorces/images/mainScreenSvg/addUserBtn.svg';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { NavigatorParamList } from '../../resorces/NavigatorParamList';
 
 interface Props {
   search: string;
@@ -13,7 +17,7 @@ interface Props {
   index: number;
   navToAddUser: () => void;
   clearSearch: () => void;
-  //data: any;
+  traslateY: number;
 }
 
 interface State {
@@ -30,8 +34,18 @@ export class MainNavBar extends React.Component<Props, State> {
   render() {
     return (
       <>
-      <View style={styles.topNav} />
+        <View style={styles.topNav} />
         <View style={styles.container}>
+          <Animated.View style={[styles.header, {transform: [{translateY: this.props.traslateY}]}]}>
+            <Text style={[textStyles.bodyBold]}>
+                {strings.mainScreen.learners}
+            </Text>
+            <TouchableOpacity
+                style={styles.AddUserBtn}
+                onPress={this.props.navToAddUser}>
+                <AddUserBtn height={24} width={24} />
+            </TouchableOpacity>
+          </Animated.View>
           <SearchBar
             value={this.props.search}
             onChangeHandle={this.props.onChangeHandle}
@@ -56,13 +70,18 @@ export class MainNavBar extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    //height: 100,
     width: '100%',
     backgroundColor: colors.Base1,
     justifyContent: 'center',
   },
   header: {
-    alignSelf: 'center',
+    alignItems: 'center',
+    height: 44,
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 16,
+    justifyContent: 'center',
   },
   tabStyle: {
     borderColor: colors.Base1,
@@ -93,9 +112,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   AddUserBtn: {
-    marginLeft: 16,
+      position: 'absolute',
+    width: 56,
+    height: '100%',
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   topNav: {
     height: 44,
-  }
+  },
 });

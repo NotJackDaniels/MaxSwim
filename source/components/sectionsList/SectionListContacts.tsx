@@ -16,6 +16,7 @@ interface Props {
   renderItem: (...props: any) => any;
   renderHeader: (params: any) => any;
   letterTextStyle: any;
+  onScroll: (e: any) => void;
 }
 
 interface State {
@@ -152,6 +153,7 @@ export default class SectionListModule extends React.Component<Props, State> {
           sections={delData}
           renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
+          onScroll={this.props.onScroll}
         />
         <View style={[styles.letterView]}>
           {letterData.map((item, index) => {

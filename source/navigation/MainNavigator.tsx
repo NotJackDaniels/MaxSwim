@@ -21,14 +21,14 @@ const Stack = createStackNavigator();
 export default class MainNavigator extends React.Component {
   private readonly dependencies = Dependencies.createDefault();
 
-  private createAddLearner = (): React.ReactNode => {
+  private createAddLearner = (props: any): React.ReactNode => {
     let presenter = new AddLearnerPresenter(this.dependencies);
-    return <AddLearnerView presenter={presenter} />;
+    return <AddLearnerView presenter={presenter} {...props} />;
   };
 
-  private createHomeScreen = (): React.ReactNode => {
+  private createHomeScreen = (props: any): React.ReactNode => {
     let presenter = new HomeScreenPresenter(this.dependencies);
-    return <HomeScreenView presenter={presenter} />;
+    return <HomeScreenView presenter={presenter} {...props}/>;
   };
   private createPhoneAuthorizationScreen = (props: any): React.ReactNode => {
     let presenter = new PhoneScreenPresenter(this.dependencies);
@@ -59,7 +59,7 @@ export default class MainNavigator extends React.Component {
           <Stack.Screen
             name={screens.home}
             options={{title: strings.home.screenTitle, headerShown: false}}>
-            {this.createHomeScreen}
+            {(props) => this.createHomeScreen(props)}
           </Stack.Screen>
           <Stack.Screen
             name={screens.phoneAuthorization}
@@ -86,7 +86,7 @@ export default class MainNavigator extends React.Component {
                 shadowOpacity: 0,
               },
             }}>
-            {this.createAddLearner}
+            {(props) => this.createAddLearner(props)}
           </Stack.Screen>
         </Stack.Navigator>
         <FlashMessage />

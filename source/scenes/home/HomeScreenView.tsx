@@ -11,6 +11,9 @@ import SectionListContacts from '../../components/sectionsList/SectionListContac
 import {MainNavBar} from '../../components/MainNavBar/MainNavBar';
 import {BottomNavBar} from '../../components/bottomNavBar/BottomNavBar';
 import strings from '../../resorces/strings';
+import Animated from 'react-native-reanimated';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { NavigatorParamList } from '../../resorces/NavigatorParamList';
 
 interface user {
   surname: string;
@@ -20,6 +23,7 @@ interface user {
 
 interface Props {
   presenter: HomeScreenPresenter;
+  navigation: StackNavigationProp<NavigatorParamList, 'home'>;
 }
 
 interface State {
@@ -31,12 +35,15 @@ interface State {
   bottomNavIndex: number;
   search: string;
   filteredUsers: any | null;
+  showShadowTop: boolean;
+  translateY: any;
 }
 
 export default class HomeScreenView
   extends React.Component<Props, State>
   implements HomeScreenViewInterface {
   private readonly presenter: HomeScreenPresenter;
+  private scrollY = new Animated.Value(0);
 
   constructor(props: Props) {
     super(props);
@@ -53,6 +60,8 @@ export default class HomeScreenView
       search: '',
       bottomNavIndex: 3,
       filteredUsers: null,
+      showShadowTop: false,
+      translateY: 0,
     };
   }
 
@@ -72,6 +81,9 @@ export default class HomeScreenView
     this.setState({users: users, filteredUsers: users});
   }
 
+  setScrollY = (translateY: any) => {
+    this.setState({translateY: translateY})
+  }
   renderItem(item: any) {
     return (
       <ContactView
@@ -120,7 +132,8 @@ export default class HomeScreenView
             this.presenter.filterData(value, this.state.users)
           }
           clearSearch={this.presenter.ClearSearch}
-          navToAddUser={() => console.warn('ok')}
+          navToAddUser={() => this.presenter.navigateToAddUser(this.props.navigation)}
+          traslateY={this.state.translateY}
         />
         {this.state.users ? (
           <SectionListContacts
@@ -128,6 +141,9 @@ export default class HomeScreenView
             renderItem={(item: any) => this.renderItem(item)}
             renderHeader={this.renderHeader}
             letterTextStyle={styles.letters}
+            onScroll={(e:any) => {
+              this.presenter.transformHeader(e);
+            }}
           />
         ) : (
           <Text>{strings.mainScreen.noUsers}</Text>

@@ -1,3 +1,6 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+import Animated from 'react-native-reanimated';
+import { NavigatorParamList } from '../../resorces/NavigatorParamList';
 import Dependencies from '../../services/Dependencies';
 var filter = require('lodash.filter');
 
@@ -7,6 +10,7 @@ export interface HomeScreenViewInterface {
   clearSearch(): void;
   setFilteredUsers: (users: any) => void;
   setSearchValue: (value: string) => void;
+  setScrollY: (translateY: any) => void;
 }
 
 export default class HomeScreenPresenter {
@@ -14,6 +18,11 @@ export default class HomeScreenPresenter {
 
   private counter: number = 0;
   private dependencies: Dependencies;
+  private scrollY = new Animated.Value(0);
+  private translateY = this.scrollY.interpolate({
+    inputRange: [0, 45],
+    outputRange: [0, 45],
+  });
 
   constructor(dependencies: Dependencies) {
     this.dependencies = dependencies;
@@ -22,6 +31,11 @@ export default class HomeScreenPresenter {
   didMount = () => {
     this.getUsers();
   };
+
+  transformHeader = (e: any) => {
+    this.scrollY.setValue(e.nativeEvent.contentOffset.Y)
+    this.view?.setScrollY(this.scrollY);
+  }
 
   async getUsers() {
     const users: any = [];
@@ -34,6 +48,28 @@ export default class HomeScreenPresenter {
 
   ClearSearch = () => {
     this.view?.clearSearch();
+  };
+
+  async navigateToAddUser(navigation: StackNavigationProp<NavigatorParamList, 'home'>) {
+    if (navigation){
+      navigation.navigate('addLearner');
+    }
+  }
+
+  isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: {
+    layoutMeasurement: any;
+    contentOffset: any;
+    contentSize: any;
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
   };
 
   contains = (name: string, surname: string, query: string) => {
@@ -51,6 +87,5 @@ export default class HomeScreenPresenter {
       return this.contains(user.name, user.surname, formattedQuery);
     });
     this.view?.setFilteredUsers(data);
-    //this.setState({ data, query: text })
   };
 }
