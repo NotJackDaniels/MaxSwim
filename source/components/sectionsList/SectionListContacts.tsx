@@ -154,6 +154,7 @@ export default class SectionListModule extends React.Component<Props, State> {
           renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
           onScroll={this.props.onScroll}
+          scrollEventThrottle={4}
         />
         <View style={[styles.letterView]}>
           {letterData.map((item, index) => {

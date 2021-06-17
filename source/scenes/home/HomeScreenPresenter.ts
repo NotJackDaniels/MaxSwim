@@ -3,6 +3,7 @@ import Animated from 'react-native-reanimated';
 import { NavigatorParamList } from '../../resorces/NavigatorParamList';
 import Dependencies from '../../services/Dependencies';
 var filter = require('lodash.filter');
+import {Linking} from 'react-native'
 
 export interface HomeScreenViewInterface {
   updateCounterText(text: string): void;
@@ -48,6 +49,13 @@ export default class HomeScreenPresenter {
 
   ClearSearch = () => {
     this.view?.clearSearch();
+  };
+
+  dialCall = (number: '') => {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
+    else {phoneNumber = `telprompt:${number}`; }
+    Linking.openURL(phoneNumber);
   };
 
   async navigateToAddUser(navigation: StackNavigationProp<NavigatorParamList, 'home'>) {
