@@ -1,9 +1,9 @@
-import { StackNavigationProp } from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 import Animated from 'react-native-reanimated';
-import { NavigatorParamList } from '../../resorces/NavigatorParamList';
+import {NavigatorParamList} from '../../resorces/NavigatorParamList';
 import Dependencies from '../../services/Dependencies';
 var filter = require('lodash.filter');
-import {Linking} from 'react-native'
+import {Linking, Platform} from 'react-native';
 
 export interface HomeScreenViewInterface {
   updateCounterText(text: string): void;
@@ -34,9 +34,11 @@ export default class HomeScreenPresenter {
   };
 
   transformHeader = (e: any) => {
-    this.scrollY.setValue(e.nativeEvent.contentOffset.Y)
+    this.scrollY.setValue(e.nativeEvent.contentOffset.Y);
     this.view?.setScrollY(this.scrollY);
-  }
+  };
+
+  ShowUserDetails(user: any) {}
 
   async getUsers() {
     const users: any = [];
@@ -51,15 +53,20 @@ export default class HomeScreenPresenter {
     this.view?.clearSearch();
   };
 
-  dialCall = (number: '') => {
+  openDialer = () => {
     let phoneNumber = '';
-    if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
-    else {phoneNumber = `telprompt:${number}`; }
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:`;
+    } else {
+      phoneNumber = `telprompt:`;
+    }
     Linking.openURL(phoneNumber);
   };
 
-  async navigateToAddUser(navigation: StackNavigationProp<NavigatorParamList, 'home'>) {
-    if (navigation){
+  async navigateToAddUser(
+    navigation: StackNavigationProp<NavigatorParamList, 'home'>,
+  ) {
+    if (navigation) {
       navigation.navigate('addLearner');
     }
   }

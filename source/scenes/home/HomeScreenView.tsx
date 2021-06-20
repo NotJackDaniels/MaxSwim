@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ContactView} from '../../components/Contact';
 import colors from '../../resorces/colors';
 import {textStyles} from '../../resorces/textStyles';
@@ -12,14 +12,8 @@ import {MainNavBar} from '../../components/MainNavBar/MainNavBar';
 import {BottomNavBar} from '../../components/bottomNavBar/BottomNavBar';
 import strings from '../../resorces/strings';
 import Animated from 'react-native-reanimated';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { NavigatorParamList } from '../../resorces/NavigatorParamList';
-
-interface user {
-  surname: string;
-  name: string;
-  lessons: number;
-}
+import {StackNavigationProp} from '@react-navigation/stack';
+import {NavigatorParamList} from '../../resorces/NavigatorParamList';
 
 interface Props {
   presenter: HomeScreenPresenter;
@@ -82,15 +76,24 @@ export default class HomeScreenView
   }
 
   setScrollY = (translateY: any) => {
-    this.setState({translateY: translateY})
-  }
+    this.setState({translateY: translateY});
+  };
+
   renderItem(item: any) {
+    let userImg = '';
+    if (item.userImg) {
+      userImg = item.userImg;
+    }
     return (
-      <ContactView
-        surname={item.surname}
-        name={item.name}
-        lessons={item.lessons}
-      />
+      <TouchableOpacity onPress={() => this.presenter.ShowUserDetails(item)}>
+        <ContactView
+          image={userImg}
+          surname={item.surname}
+          name={item.name}
+          lessons={item.lessons}
+          openDialer={this.presenter.openDialer}
+        />
+      </TouchableOpacity>
     );
   }
 
@@ -132,7 +135,9 @@ export default class HomeScreenView
             this.presenter.filterData(value, this.state.users)
           }
           clearSearch={this.presenter.ClearSearch}
-          navToAddUser={() => this.presenter.navigateToAddUser(this.props.navigation)}
+          navToAddUser={() =>
+            this.presenter.navigateToAddUser(this.props.navigation)
+          }
           traslateY={this.state.translateY}
         />
         {this.state.users ? (
@@ -141,7 +146,7 @@ export default class HomeScreenView
             renderItem={(item: any) => this.renderItem(item)}
             renderHeader={this.renderHeader}
             letterTextStyle={styles.letters}
-            onScroll={(e:any) => {
+            onScroll={(e: any) => {
               this.presenter.transformHeader(e);
             }}
           />
