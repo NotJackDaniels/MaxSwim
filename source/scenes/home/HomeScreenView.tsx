@@ -85,7 +85,10 @@ export default class HomeScreenView
       userImg = item.userImg;
     }
     return (
-      <TouchableOpacity onPress={() => this.presenter.ShowUserDetails(item)}>
+      <TouchableOpacity
+        onPress={() =>
+          this.presenter.ShowUserDetails(item, this.props.navigation)
+        }>
         <ContactView
           image={userImg}
           surname={item.surname}

@@ -6,13 +6,22 @@ export default class StorageService implements StorageServiceInterface {
   AddUser = (user: any) => {
     firebase.firestore().collection('users').add(user);
   };
-  addImage = async (image: any) => {
+
+  addImage = async (image: any): Promise<any> => {
     const uploadUri = image;
     let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+    const extension = filename.split('.').pop();
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+    const storageRef = storage().ref(`photos/${filename}`);
+
     try {
-      await storage().ref(filename).putFile(uploadUri);
+      await storageRef.putFile(uploadUri);
+      const url = await storageRef.getDownloadURL();
+      return url;
     } catch (e) {
       console.warn(e);
+      return null;
     }
   };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import colors from '../resorces/colors';
-import lessonsNumber from '../resorces/lessonsNumber';
 import {textStyles} from '../resorces/textStyles';
 
 interface Props {
   value: number | string;
   setNewValue: (lessons: number) => void;
+  lessonsNumber?: any;
+  addLessons?: any;
 }
 
 interface State {
@@ -25,7 +26,13 @@ export class RadioButtons extends React.Component<Props, State> {
     };
   }
   render() {
-    return lessonsNumber.map((item) => (
+    let renderLessons;
+    if (this.props.addLessons) {
+      renderLessons = this.props.addLessons;
+    } else {
+      renderLessons = this.props.lessonsNumber;
+    }
+    return renderLessons.map((item: any) => (
       <TouchableOpacity
         key={item.key}
         onPress={() => this.props.setNewValue(item.value)}
@@ -49,5 +56,6 @@ const styles = StyleSheet.create({
     padding: 9,
     borderRadius: 8,
     paddingHorizontal: 16,
+    height: 32,
   },
 });

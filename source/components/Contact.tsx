@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CallIcon from '../resorces/images/callIcon.svg';
 import colors from '../resorces/colors';
 import {textStyles} from '../resorces/textStyles';
@@ -9,7 +9,8 @@ interface Props {
   surname: string;
   name: string;
   lessons: number;
-  image?: string | null;
+  image: any;
+  openDialer: () => void;
 }
 
 interface State {
@@ -27,7 +28,7 @@ export class ContactView extends React.Component<Props, State> {
     return (
       <>
         <View style={styles.container}>
-          <Image source={{uri: this.state.userImage}} style={styles.image} />
+          <Image source={{uri: this.props.image}} style={styles.image} />
           <View style={styles.content}>
             <Text style={textStyles.body}>
               {this.props.surname} {this.props.name}
@@ -37,7 +38,11 @@ export class ContactView extends React.Component<Props, State> {
             </Text>
             <View style={styles.separator} />
           </View>
-          <CallIcon width={17} height={17} style={styles.callIcon} />
+          <TouchableOpacity
+            onPress={this.props.openDialer}
+            style={styles.callIcon}>
+            <CallIcon width={17} height={17} />
+          </TouchableOpacity>
         </View>
       </>
     );

@@ -3,6 +3,7 @@ const screens = {
   addLearner: 'addLearner',
   phoneAuthorization: 'phoneAuthorization',
   code: 'code',
+  userDetails: 'userDetails',
 };
 
 export default screens;

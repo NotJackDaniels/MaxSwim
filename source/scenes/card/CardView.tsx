@@ -1,18 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {CardButton} from '../../components/CardButton';
 import colors from '../../resorces/colors';
 import {textStyles} from '../../resorces/textStyles';
-import TestImage from '../../resorces/images/testImageCard.svg';
 import CardPresenter, {CardViewInterface} from './CardPresenter';
 import strings from '../../resorces/strings';
 import I18n from '../../i18n/pluralizer';
 
 interface Props {
-  allLessons: number;
-  attendance: number;
-  lessonsLeft: number;
-  telephone: String;
+  user: any;
   presenter: CardPresenter;
 }
 
@@ -38,11 +34,13 @@ export class StudentCard
   }
 
   componentDidMount() {
-    this.presenter.didMount(this.props.lessonsLeft, this.props.allLessons);
+    this.presenter.didMount(
+      this.props.user.lessons,
+      this.props.user.allLessons,
+    );
   }
 
   setLessonsBg = (bg: string) => {
-    console.warn(bg);
     this.setState({lessonsBg: bg});
   };
 
@@ -51,14 +49,18 @@ export class StudentCard
   };
 
   render() {
+    const userName = `${this.props.user.surname} ${this.props.user.name} ${this.props.user.patronymic}`;
     return (
       <View style={styles.card}>
         <View style={styles.content}>
-          <TestImage height={106} width={106} style={styles.cardImage} />
+          <Image
+            source={{uri: this.props.user.userImg}}
+            style={styles.cardImage}
+          />
           <View style={styles.contentFlex}>
             <Text
               style={[textStyles.title3, {flexWrap: 'wrap', flexShrink: 1}]}>
-              {strings.cardTest.name}
+              {userName}
             </Text>
             <Text
               style={[
@@ -66,26 +68,26 @@ export class StudentCard
                 styles.lessonsLeftText,
                 {color: this.state.lessonsBg},
               ]}>
-              {I18n.t('lessons', {count: this.props.lessonsLeft})}
+              {I18n.t('lessons', {count: this.props.user.lessons})}
             </Text>
             <View style={styles.itemRow}>
               <View style={styles.statistic}>
                 <Text style={[textStyles.footNoteSmall, styles.smallTextColor]}>
                   {strings.card.allLessons}
                 </Text>
-                <Text style={textStyles.body}>{this.state.allLessons}</Text>
+                <Text style={textStyles.body}>{this.props.user.lessons}</Text>
               </View>
               <View>
                 <Text style={[textStyles.footNoteSmall, styles.smallTextColor]}>
                   {strings.card.attendance}
                 </Text>
-                <Text style={textStyles.body}>{this.props.attendance} %</Text>
+                <Text style={textStyles.body}>0 %</Text>
               </View>
             </View>
           </View>
         </View>
         <View style={styles.itemRow}>
-          {this.props.telephone ? (
+          {this.props.user.telephones[0].number ? (
             <>
               <CardButton
                 onPress={() => console.log('clicked!')}
@@ -140,6 +142,10 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     marginRight: 16,
+    width: 106,
+    height: 106,
+    borderRadius: 8,
+    backgroundColor: 'rgba(219, 229, 228, 1)',
   },
   statistic: {
     marginRight: 16,

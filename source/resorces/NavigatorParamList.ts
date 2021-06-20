@@ -8,4 +8,5 @@ export type NavigatorParamList = {
   };
   home: undefined;
   addLearner: undefined;
+  userDetails: {user: any};
 };

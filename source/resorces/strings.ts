@@ -61,6 +61,14 @@ const strings = {
     today: 'Сегодня',
     noUsers: 'Нет учеников',
   },
+  userDetails: {
+    screenTitle: 'Информация о пользователе',
+    birthday: 'Дата рождения',
+    telephones: 'Телефоны',
+    history: 'История абонементов',
+    information: 'Информация',
+    addSubscription: 'Добавить абонемент',
+  },
 };
 
 export default strings;

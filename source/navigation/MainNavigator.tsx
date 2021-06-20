@@ -8,13 +8,13 @@ import HomeScreenPresenter from '../scenes/home/HomeScreenPresenter';
 import AddLearnerPresenter from '../scenes/addLearner/AddLearnerPresenter';
 import AddLearnerView from '../scenes/addLearner/AddLearnerView';
 import strings from '../resorces/strings';
-import {StudentCard} from '../scenes/card/CardView';
-import CardPresenter from '../scenes/card/CardPresenter';
 import PhoneScreenPresenter from '../scenes/authorization/PhoneScreenPresenter';
 import PhoneScreenView from '../scenes/authorization/PhoneScreen';
 import CodeScreenPresenter from '../scenes/authorization/CodeScreenPresenter';
 import CodeScreenView from '../scenes/authorization/CodeScreen';
 import FlashMessage from 'react-native-flash-message';
+import UserDetailsPresenter from '../scenes/userDetails/UserDetailsPresenter';
+import UserDetailsScreen from '../scenes/userDetails/UserDetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +28,7 @@ export default class MainNavigator extends React.Component {
 
   private createHomeScreen = (props: any): React.ReactNode => {
     let presenter = new HomeScreenPresenter(this.dependencies);
-    return <HomeScreenView presenter={presenter} {...props}/>;
+    return <HomeScreenView presenter={presenter} {...props} />;
   };
   private createPhoneAuthorizationScreen = (props: any): React.ReactNode => {
     let presenter = new PhoneScreenPresenter(this.dependencies);
@@ -39,17 +39,9 @@ export default class MainNavigator extends React.Component {
     return <CodeScreenView presenter={presenter} {...props} />;
   };
 
-  private createCard = (): React.ReactNode => {
-    let presenter = new CardPresenter(this.dependencies);
-    return (
-      <StudentCard
-        allLessons={0}
-        lessonsLeft={10}
-        attendance={21}
-        telephone={'2321'}
-        presenter={presenter}
-      />
-    );
+  private createUserDetailsScreen = (props: any): React.ReactNode => {
+    let presenter = new UserDetailsPresenter(this.dependencies);
+    return <UserDetailsScreen presenter={presenter} {...props} />;
   };
 
   render() {
@@ -60,6 +52,14 @@ export default class MainNavigator extends React.Component {
             name={screens.home}
             options={{title: strings.home.screenTitle, headerShown: false}}>
             {(props) => this.createHomeScreen(props)}
+          </Stack.Screen>
+          <Stack.Screen
+            name={screens.userDetails}
+            options={{
+              title: strings.userDetails.screenTitle,
+              headerShown: false,
+            }}>
+            {(props) => this.createUserDetailsScreen(props)}
           </Stack.Screen>
           <Stack.Screen
             name={screens.phoneAuthorization}

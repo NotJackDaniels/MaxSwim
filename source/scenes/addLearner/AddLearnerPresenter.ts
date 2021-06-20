@@ -20,8 +20,12 @@ export default class AddLearnerScreenPresenter {
     this.view?.addTelephone();
   };
 
-  AddUser = (user: any) => {
-    this.dependencies.storageService.AddUser(user);
+  AddUser = async (user: any, image: any) => {
+    const imageUrl = await this.dependencies.storageService.addImage(image);
+    user.userImg = imageUrl;
+    if (imageUrl) {
+      this.dependencies.storageService.AddUser(user);
+    }
   };
 
   addImage = async (image: any) => {

@@ -6,6 +6,7 @@ interface Props {
   onPress: () => void;
   buttonText: string;
   style: any;
+  textStyle?: any;
 }
 
 interface State {
@@ -31,7 +32,7 @@ export class ToggleButton extends React.Component<Props, State> {
           this.props.style,
           {borderColor: this.state.borderColor},
         ]}>
-        <Text>{this.props.buttonText}</Text>
+        <Text style={this.props.textStyle}>{this.props.buttonText}</Text>
       </TouchableOpacity>
     );
   }
@@ -39,10 +40,11 @@ export class ToggleButton extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
     borderWidth: 1,
     padding: 9,
     borderRadius: 8,
     paddingHorizontal: 16,
+    alignItems: 'center',
+    marginBottom: 32,
   },
 });

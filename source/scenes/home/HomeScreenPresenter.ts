@@ -17,7 +17,6 @@ export interface HomeScreenViewInterface {
 export default class HomeScreenPresenter {
   view?: HomeScreenViewInterface;
 
-  private counter: number = 0;
   private dependencies: Dependencies;
   private scrollY = new Animated.Value(0);
   private translateY = this.scrollY.interpolate({
@@ -38,7 +37,12 @@ export default class HomeScreenPresenter {
     this.view?.setScrollY(this.scrollY);
   };
 
-  ShowUserDetails(user: any) {}
+  ShowUserDetails(
+    user: any,
+    navigation: StackNavigationProp<NavigatorParamList, 'home'>,
+  ) {
+    navigation.navigate('userDetails', {user: user});
+  }
 
   async getUsers() {
     const users: any = [];

@@ -23,6 +23,7 @@ import {RadioButtons} from '../../components/RadioButtons';
 import CameraIcon from '../../resorces/images/camera.svg';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import {lessonsNumber} from '../../resorces/lessonsNumber';
 
 interface Props {
   presenter: AddLearnerScreenPresenter;
@@ -42,6 +43,7 @@ interface user {
   patronymic: string;
   lessons: number;
   telephones: Array<Telephone>;
+  imageUrl?: any;
 }
 
 interface State {
@@ -130,7 +132,6 @@ export default class AddLearnerScreenView
         telephones: this.state.telephones.concat([this.state.telephone]),
       });
     }
-    console.warn(this.state.telephone);
   };
 
   removeTelephone = (telephone: any) => {
@@ -154,10 +155,7 @@ export default class AddLearnerScreenView
     });
     console.warn(this.state.user);
     if (this.state.user) {
-      this.presenter.AddUser(this.state.user);
-    }
-    if (this.state.image) {
-      this.presenter.addImage(this.state.image);
+      this.presenter.AddUser(this.state.user, this.state.image);
     }
   };
 
@@ -197,6 +195,7 @@ export default class AddLearnerScreenView
           telephone={item.number}
           isMain={item.isMain}
           onPress={() => this.removeTelephone(item)}
+          removable={true}
         />
         <View style={styles.separator} />
       </>
@@ -332,6 +331,7 @@ export default class AddLearnerScreenView
           <RadioButtons
             value={this.state.lessons}
             setNewValue={this.onChangeHandle}
+            lessonsNumber={lessonsNumber}
           />
         </ScrollView>
         <View style={styles.container}>
@@ -342,6 +342,7 @@ export default class AddLearnerScreenView
             marginBottom={0}
             errorType={'numbers'}
             hasErrors={this.hasErrors}
+            keyboardType={'numeric'}
           />
         </View>
         <View style={styles.container}>

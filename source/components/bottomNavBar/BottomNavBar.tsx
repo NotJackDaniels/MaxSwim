@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.Base1,
     alignItems: 'flex-start',
     bottom: 0,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
+    zIndex: 1,
     elevation: 5,
   },
 });

@@ -7,8 +7,6 @@ import colors from '../../resorces/colors';
 import {SearchBar} from './SearchBar/SearchBar';
 import AddUserBtn from '../../resorces/images/mainScreenSvg/addUserBtn.svg';
 import SearchBtn from '../../resorces/images/mainScreenSvg/searchBtn.svg';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { NavigatorParamList } from '../../resorces/NavigatorParamList';
 
 interface Props {
   search: string;

@@ -7,6 +7,7 @@ import {
   ViewPropTypes,
   TouchableWithoutFeedback,
   SectionList,
+  Platform,
 } from 'react-native';
 var _ = require('lodash');
 import {makePy} from './getFirstAlphabet';
@@ -144,6 +145,7 @@ export default class SectionListModule extends React.Component<Props, State> {
     let filterData = this.filterData();
     let delData = filterData.delData;
     let letterData = filterData.letterData;
+    console.warn(delData);
     const ref = createRef<SectionList<any>>();
     return (
       <View style={styles.container}>
@@ -155,6 +157,7 @@ export default class SectionListModule extends React.Component<Props, State> {
           renderItem={this._renderItem}
           onScroll={this.props.onScroll}
           scrollEventThrottle={4}
+          style={styles.SectionList}
         />
         <View style={[styles.letterView]}>
           {letterData.map((item, index) => {
@@ -202,6 +205,9 @@ export default class SectionListModule extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
+  SectionList: {
+    marginBottom: Platform.OS === 'ios' ? 83 : 56,
+  },
   container: {
     flex: 1,
   },
@@ -212,7 +218,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   letterView: {
-    width: 40,
+    top: Platform.OS === 'android' ? -100 : -144,
+    width: 20,
     position: 'absolute',
     height: '100%',
     alignItems: 'center',
