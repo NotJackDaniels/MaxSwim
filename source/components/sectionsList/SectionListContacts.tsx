@@ -169,6 +169,7 @@ export default class SectionListModule extends React.Component<Props, State> {
                     itemIndex: 0,
                     sectionIndex: index,
                   });
+                  console.warn(1);
                 }}>
                 <View style={[styles.letterItemView]}>
                   <Text
@@ -249,6 +250,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 1,
     paddingHorizontal: 2,
+    zIndex: 1,
   },
   artistText: {
     fontSize: 15,

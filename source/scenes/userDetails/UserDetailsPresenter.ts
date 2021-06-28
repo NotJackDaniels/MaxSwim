@@ -22,7 +22,6 @@ export default class UserDetailsPresenter {
     const parseDate = moment(date * 1000)
       .locale('ru')
       .format('DD MMMM YYYY');
-    console.warn(parseDate);
     this.view?.setDate(parseDate);
   };
 

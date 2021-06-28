@@ -141,10 +141,16 @@ export default class UserDetailsScreen
               keyExtractor={(item, index) => `item-${index}`}
             />
           </View>
-          <View style={styles.contentPart}>
+          <View style={[styles.row, styles.contentPart]}>
             <Text style={[textStyles.bodyBold, styles.topic]}>
               {strings.userDetails.history}
             </Text>
+            <TouchableOpacity style={styles.allSubscriptions}>
+              <Text
+                style={[textStyles.footNote, styles.allSubscriptionsTextColor]}>
+                {strings.userDetails.all}
+              </Text>
+            </TouchableOpacity>
           </View>
           <ToggleButton
             style={styles.addSubscription}
@@ -155,7 +161,7 @@ export default class UserDetailsScreen
           <Modal isVisible={this.state.visible} style={styles.modalWindow}>
             <View style={styles.modal}>
               <View style={styles.swipe}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.toggleModal}>
                   <SwipeIcon height={4} width={32} />
                 </TouchableOpacity>
               </View>
@@ -269,6 +275,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: 8,
+    alignItems: 'center',
   },
   formHeading: {
     marginBottom: 16,
@@ -278,5 +285,15 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 8,
     alignItems: 'center',
+  },
+  allSubscriptions: {
+    position: 'absolute',
+    right: 16,
+    //height: '100%',
+    borderWidth: 0,
+  },
+  allSubscriptionsTextColor: {
+    color: colors.Accent,
+    top: -3,
   },
 });

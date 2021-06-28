@@ -68,6 +68,7 @@ const strings = {
     history: 'История абонементов',
     information: 'Информация',
     addSubscription: 'Добавить абонемент',
+    all: 'Все →',
   },
 };
 
